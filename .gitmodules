@@ -1,6 +1,7 @@
 [submodule "src/odrive_can"]
 	path = src/odrive_can
 	url = https://github.com/odriverobotics/odrive_can.git
+
 [submodule "src/myactuator_rmd"]
 	path = src/myactuator_rmd
 	url = https://github.com/2b-t/myactuator_rmd.git
