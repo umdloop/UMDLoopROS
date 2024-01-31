@@ -1,0 +1,43 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 60
+
+    drive_controller:
+      type: diff_drive_controller/DiffDriveController
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+drive_controller:
+  ros__parameters:
+    left_wheel_names:
+      ["L_wheel_1", "L_wheel_2", "L_Wheel_3"]
+    right_wheel_names:
+      ["R_wheel_1", "R_wheel_2", "R_Wheel_3"]
+
+    position_feedback: false
+    open_loop: false
+
+    wheel_seperation: 0.5 # fix
+
+    wheel_radius: 0.20
+    cmd_vel_timeout: 0.5
+
+    linear:
+      x:
+        has_velocity_limits: true
+        max_velocity: 1.0 # m/s
+        min_velocity: -0.5 # m/s
+        has_acceleration_limits: true
+        max_acceleration: 0.5 # m/s^2
+        min_acceleration: -0.4 # m/s^2
+        has_jerk_limits: true
+        max_jerk: 5.0 # m/s^3
+    angular:
+      z:
+        has_velocity_limits: true
+        max_velocity: 1 # rad/s
+        has_acceleration_limits: true
+        max_acceleration: .75 # rad/s^2
+        has_jerk_limits: true
+        max_jerk: 2.5 # rad/s^3
