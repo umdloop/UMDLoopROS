@@ -1,0 +1,140 @@
+<robot name="ros2_drive_urdf">
+
+  <link name="Chassis">
+    <inertial>
+      <origin xyz="-0.00887504191546607 0.0454280414162516 -0.0207767269551461" rpy="0 0 0" />
+      <mass value="43.2370874728493" />
+      <inertia ixx="1.508630498225" ixy="-0.0030246137194133" ixz="0.000799866263484743" iyy="1.87554173268809" iyz="8.05813048835903E-05" izz="0.602015519267222" />
+    </inertial>
+    </link>
+  <link name="Right_Rocker">
+    <inertial>
+      <origin xyz="-0.0436433295958423 0.0593934829095328 0.00472087246614794" rpy="0 0 0" />
+      <mass value="1.10762470899897" />
+      <inertia ixx="0.00369458051555411" ixy="-0.00163927880010284" ixz="-6.02907427779318E-08" iyy="0.00244574841228344" iyz="-5.04247046194517E-08" izz="0.00534123351764713" />
+    </inertial>
+    </link>
+  <joint name="Right_Rocker_Joint" type="fixed">
+    <origin xyz="0.11842 -0.37982 -0.0014973" rpy="0 0 0" />
+    <parent link="Chassis" />
+    <child link="Right_Rocker" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <link name="Right_Back_Wheel">
+    <inertial>
+      <origin xyz="-1.34442448840311E-09 -1.56033141962553E-09 5.63591432539701E-06" rpy="0 0 0" />
+      <mass value="3.28963914696264" />
+      <inertia ixx="0.0163807404184271" ixy="-9.71739741487227E-11" ixz="-1.328424469185E-09" iyy="0.0163807379237863" iyz="6.05148699557256E-10" izz="0.0296783259470413" />
+    </inertial>
+    </link>
+  <joint name="Right_Back_Wheel_Joint" type="fixed">
+    <origin xyz="-0.30842 -0.31537 -0.064579" rpy="3.1416 0 1.4847" />
+    <parent link="Right_Rocker" />
+    <child link="Right_Back_Wheel" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <link name="Right_Bogey">
+    <inertial>
+      <origin xyz="0.0899335859750466 -0.0489987981038419 0.0473561971877113" rpy="0 0 0" />
+      <mass value="0.511401751139487" />
+      <inertia ixx="0.000683730350611613" ixy="-0.000373606002766477" ixz="0.000200526402382891" iyy="0.00145062245584919" iyz="7.54979357171586E-05" izz="0.00196105548270142" />
+    </inertial>
+    </link>
+  <joint name="Right_Bogey_Joint" type="fixed">
+    <origin xyz="-0.0913760860082668 0.205866342837598 0.0574334286174003" rpy="-3.09967404646976 0.140189618805046 1.34312361898443" />
+    <parent link="Right_Rocker" />
+    <child link="Right_Bogey" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <link name="Right_Middle_Wheel">
+    <inertial>
+      <origin xyz="-1.33608389629725E-09 -1.55085011499523E-09 5.63591410263076E-06" rpy="0 0 0" />
+      <mass value="3.28963914689087" />
+      <inertia ixx="0.0163807404196866" ixy="-9.72946966049104E-11" ixz="-1.32871664841805E-09" iyy="0.0163807379234442" iyz="6.02831590206722E-10" izz="0.0296783259501114" />
+    </inertial>
+    </link>
+  <joint name="Right_Middle_Wheel_Joint" type="fixed">
+    <origin xyz="-0.134284291091264 -0.126823215241247 0.147615729228205" rpy="-0.0191325268759481 0.145035471043353 0.157039849125545" />
+    <parent link="Right_Bogey" />
+    <child link="Right_Middle_Wheel" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <link name="Right_Front_Wheel">
+    <inertial>
+      <origin xyz="-1.33608391017503E-09 -1.55085011499523E-09 5.63591410263076E-06" rpy="0 0 0" />
+      <mass value="3.28963914689086" />
+      <inertia ixx="0.0163807404196866" ixy="-9.72946994238361E-11" ixz="-1.32871666155052E-09" iyy="0.0163807379234442" iyz="6.02831623870518E-10" izz="0.0296783259501113" />
+    </inertial>
+    </link>
+  <joint name="Right_Front_Wheel_Joint" type="fixed">
+    <origin xyz="0.254886579006707 -0.153518040652547 0.0937691514865085" rpy="-0.0324300532333156 0.142668176221461 0.064346336890783" />
+    <parent link="Right_Bogey" />
+    <child link="Right_Front_Wheel" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <link name="Left_Rocker">
+    <inertial>
+      <origin xyz="-0.16476353491117 -0.00855757817782582 0.0313580455806827" rpy="0 0 0" />
+      <mass value="1.10762492890504" />
+      <inertia ixx="0.00321791742632641" ixy="-0.00142820628950666" ixz="-0.00112587689960876" iyy="0.00356012576794041" iyz="-0.000940087821177661" izz="0.00470351996813496" />
+    </inertial>
+    </link>
+  <joint name="Left_Rocker_Joint" type="fixed">
+    <origin xyz="0.31368 0.50435 -0.080767" rpy="0 0 0" />
+    <parent link="Chassis" />
+    <child link="Left_Rocker" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <link name="Left_Back_Wheel">
+    <inertial>
+      <origin xyz="-1.34442446064753E-09 -1.56033136411438E-09 5.63591432545252E-06" rpy="0 0 0" />
+      <mass value="3.28963914696264" />
+      <inertia ixx="0.0163807404184271" ixy="-9.71739646429308E-11" ixz="-1.32842447341154E-09" iyy="0.0163807379237863" iyz="6.05148695161588E-10" izz="0.0296783259470414" />
+    </inertial>
+    </link>
+  <joint name="Left_Back_Wheel_Joint" type="fixed">
+    <origin xyz="-0.453717487798984 -0.27630635843299 -0.213934290216079" rpy="0.147000927732042 -0.389719095635941 0.158103695140693" />
+    <parent link="Left_Rocker" />
+    <child link="Left_Back_Wheel" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <link name="Left_Bogey">
+    <inertial>
+      <origin xyz="0.0899335769241087 -0.0489988020027452 -0.0473562059017909" rpy="0 0 0" />
+      <mass value="0.511401814522242" />
+      <inertia ixx="0.000683730266021875" ixy="-0.000373605997899613" ixz="-0.000200526350946497" iyy="0.0014506223231941" iyz="-7.5497904722457E-05" izz="0.00196105519114392" />
+    </inertial>
+    </link>
+  <joint name="Left_Bogey_Joint" type="fixed">
+    <origin xyz="-0.0408831827913919 -0.0568802275635301 0.125325648893232" rpy="0.0416559716688318 -0.266656871895905 0.32333990032838" />
+    <parent link="Left_Rocker" />
+    <child link="Left_Bogey" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <link name="Left_Middle_Wheel">
+    <inertial>
+      <origin xyz="-1.34442451615868E-09 -1.56033141962553E-09 5.63591432539701E-06" rpy="0 0 0" />
+      <mass value="3.28963914696264" />
+      <inertia ixx="0.0163807404184271" ixy="-9.7173972189977E-11" ixz="-1.32842447488667E-09" iyy="0.0163807379237863" iyz="6.05148694881041E-10" izz="0.0296783259470414" />
+    </inertial>
+    </link>
+  <joint name="Left_Middle_Wheel_Joint" type="fixed">
+    <origin xyz="-0.134284291342932 -0.126823215326131 -0.147615729383096" rpy="0.0617671522833031 -0.132687648398872 -0.14861745563247" />
+    <parent link="Left_Bogey" />
+    <child link="Left_Middle_Wheel" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <link name="Left_Front_Wheel">
+    <inertial>
+      <origin xyz="-1.34442446064753E-09 -1.56033153064783E-09 5.6359143253415E-06" rpy="0 0 0" />
+      <mass value="3.28963914696265" />
+      <inertia ixx="0.0163807404184272" ixy="-9.7173993903407E-11" ixz="-1.32842446866788E-09" iyy="0.0163807379237863" iyz="6.05148681418212E-10" izz="0.0296783259470414" />
+    </inertial>
+    </link>
+  <joint name="Left_Front_Wheel_Joint" type="fixed">
+    <origin xyz="0.254886578755042 -0.15351804073742 -0.0937691516414035" rpy="0.0617671522833031 -0.132687648398872 -0.14861745563247" />
+    <parent link="Left_Bogey" />
+    <child link="Left_Front_Wheel" />
+    <axis xyz="0 0 0" />
+  </joint>
+</robot>

@@ -30,9 +30,9 @@
 #include "rclcpp_lifecycle/node_interfaces/lifecycle_node_interface.hpp"
 #include "rclcpp_lifecycle/state.hpp"
 
-#include "visibility_control.h"
+#include "ros2_control_demo_example_2/visibility_control.h"
 
-namespace drive_hardware
+namespace ros2_control_demo_example_2
 {
 class DiffBotSystemHardware : public hardware_interface::SystemInterface
 {
@@ -76,5 +76,6 @@ private:
   std::vector<double> hw_velocities_;
 };
 
-} 
-#endif
+}  // namespace ros2_control_demo_example_2
+
+#endif  // ROS2_CONTROL_DEMO_EXAMPLE_2__DIFFBOT_SYSTEM_HPP_
