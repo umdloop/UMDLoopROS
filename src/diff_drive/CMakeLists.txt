@@ -7,24 +7,32 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
+find_package(hardware_interface REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(pluginlib REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
-install(
-  DIRECTORY launch
-  DESTINATION share/diff_drive
+
+add_library(
+    diff_drive
+    SHARED
+    src/drive.cpp
+    include/diff_drive/drive.hpp
 )
-install(
-  DIRECTORY description
-  DESTINATION share/diff_drive
+target_include_directories(diff_drive PUBLIC
+$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/hardware/include>
+$<INSTALL_INTERFACE:hardware/include/diff_drive>
 )
-install(
-  DIRECTORY config
-  DESTINATION share/diff_drive
+ament_target_dependencies(diff_drive
+    "hardware_interface"
+ #   "rclcpp"
+  #  "pluginlib"
 )
+
 install(
-  DIRECTORY worlds
-  DESTINATION share/diff_drive
+  DIRECTORY include/
+  DESTINATION include/diff_drive
 )
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
