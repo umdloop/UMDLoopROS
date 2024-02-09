@@ -4,7 +4,9 @@ This is all written assuming an Ubuntu 22.04 LTS install with ROS2 Humble instal
 
 You will need to install these packages additionally.
 
+## Getting Started
 
+You need to install the myactuator_rmd package globally to get started (TODO: Make this not as terrible)
 ## Navigation Packages
 ```
 sudo apt-get install ros-humble-navigation2
@@ -18,13 +20,4 @@ sudo apt-get install ros-humble-ros2-control
 sudo apt-get install ros-humble-ros2-controllers
 sudo apt-get install ros-humble-gazebo-ros2-control
 ```
-
-# Run Gazebo Simulation
-
-```
-colcon build
-source install/setup.bash
-ros2 launch diff_drive launch_sim.launch.py world:=src/diff_drive/worlds/empty.world
-
-// to control it with the keyboard?
 
