@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "hardware_int/drive.hpp"
+#include "hardware/drive.hpp"
 
 #include <chrono>
 #include <cmath>

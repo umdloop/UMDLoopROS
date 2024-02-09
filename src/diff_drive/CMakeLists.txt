@@ -17,12 +17,12 @@ find_package(pluginlib REQUIRED)
 add_library(
     diff_drive
     SHARED
-    src/drive.cpp
-    include/diff_drive/drive.hpp
+    hardware/src/drive.cpp
+    hardware/include/hardware/drive.hpp
 )
 target_include_directories(diff_drive PUBLIC
 $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/hardware/include>
-$<INSTALL_INTERFACE:hardware/include/diff_drive>
+$<INSTALL_INTERFACE:hardware/include/hardware>
 )
 ament_target_dependencies(diff_drive
     "hardware_interface"
@@ -31,8 +31,8 @@ ament_target_dependencies(diff_drive
 )
 
 install(
-  DIRECTORY include/
-  DESTINATION include/diff_drive
+  DIRECTORY hardware/include
+  DESTINATION include/hardware
 )
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
