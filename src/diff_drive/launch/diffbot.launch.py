@@ -35,7 +35,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "use_mock_hardware",
-            default_value="false",
+            default_value="true",
             description="Start robot with mock hardware mirroring command to its states.",
         )
     )
@@ -50,7 +50,7 @@ def generate_launch_description():
             PathJoinSubstitution([FindExecutable(name="xacro")]),
             " ",
             PathJoinSubstitution(
-                [FindPackageShare("ros2_control_demo_example_2"), "urdf", "diffbot.urdf.xacro"]
+                [FindPackageShare("diff_drive"), "urdf", "diffbot.urdf.xacro"]
             ),
             " ",
             "use_mock_hardware:=",
@@ -61,13 +61,13 @@ def generate_launch_description():
 
     robot_controllers = PathJoinSubstitution(
         [
-            FindPackageShare("ros2_control_demo_example_2"),
+            FindPackageShare("diff_drive"),
             "config",
             "diffbot_controllers.yaml",
         ]
     )
     rviz_config_file = PathJoinSubstitution(
-        [FindPackageShare("ros2_control_demo_description"), "diffbot/rviz", "diffbot.rviz"]
+        [FindPackageShare("diff_drive"), "rviz", "diffbot.rviz"]
     )
 
     control_node = Node(
@@ -90,8 +90,8 @@ def generate_launch_description():
         executable="rviz2",
         name="rviz2",
         output="log",
-        arguments=["-d", rviz_config_file],
         condition=IfCondition(gui),
+        arguments=["-d", rviz_config_file],
     )
 
     joint_state_broadcaster_spawner = Node(

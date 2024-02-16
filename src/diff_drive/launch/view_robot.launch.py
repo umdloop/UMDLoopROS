@@ -27,7 +27,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "description_package",
-            default_value="ros2_control_demo_description",
+            default_value="diff_drive",
             description="Description package with robot URDF/xacro files. Usually the argument \
         is not set, it enables use of a custom description.",
         )
@@ -69,7 +69,7 @@ def generate_launch_description():
             PathJoinSubstitution([FindExecutable(name="xacro")]),
             " ",
             PathJoinSubstitution(
-                [FindPackageShare("ros2_control_demo_example_2"), "urdf", description_file]
+                [FindPackageShare("diff_drive"), "urdf", description_file]
             ),
             " ",
             "prefix:=",
@@ -77,9 +77,8 @@ def generate_launch_description():
         ]
     )
     robot_description = {"robot_description": robot_description_content}
-
     rviz_config_file = PathJoinSubstitution(
-        [FindPackageShare(description_package), "diffbot/rviz", "diffbot_view.rviz"]
+        [FindPackageShare("diff_drive"), "rviz", "diffbot_view.rviz"]
     )
 
     joint_state_publisher_node = Node(
@@ -98,8 +97,8 @@ def generate_launch_description():
         executable="rviz2",
         name="rviz2",
         output="log",
-        arguments=["-d", rviz_config_file],
         condition=IfCondition(gui),
+        arguments=["-d", rviz_config_file]
     )
 
     nodes = [

@@ -34,6 +34,26 @@ install(
   DIRECTORY hardware/include
   DESTINATION include/hardware
 )
+install(
+  DIRECTORY launch
+  DESTINATION share/diff_drive
+)
+install(
+  DIRECTORY ros2_control
+  DESTINATION share/diff_drive
+)
+install(
+  DIRECTORY urdf
+  DESTINATION share/diff_drive
+)
+install(
+  DIRECTORY rviz
+  DESTINATION share/diff_drive
+)
+install(
+  DIRECTORY config
+  DESTINATION share/diff_drive
+)
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   # the following line skips the linter which checks for copyrights
