@@ -23,13 +23,20 @@
 #include "pluginlib/class_list_macros.hpp"
 #include "hardware_interface/types/hardware_interface_type_values.hpp"
 #include "rclcpp/rclcpp.hpp"
-#include <myactuator_rmd/driver.hpp>
+#define Phoenix_No_WPI
+#include "ctre/Phoenix.h"
+#include "ctre/phoenix/platform/Platform.hpp"
+#include "ctre/phoenix/unmanaged/Unmanaged.h"
+
 using namespace hardware_interface;
 using namespace std;
-using namespace myactuator_rmd;
+using namespace ctre::phoenix;
+using namespace ctre::phoenix::platform;
+using namespace ctre::phoenix::motorcontrol;
+using namespace ctre::phoenix::motorcontrol::can;
 
 namespace hardware_int {
-
+/*
 Driver left_back{"can0", 99};
 Driver left_middle{"can0", 99};
 Driver left_front{"can0", 99};
@@ -38,7 +45,7 @@ Driver right_back{"can0", 99};
 Driver right_middle{"can0", 99};
 Driver right_front{"can0", 99};
 
-vector<Driver*> motors = {&left_back, &left_middle, &left_front, &right_back, &right_middle, &right_front};
+vector<Driver*> motors = {&left_back, &left_middle, &left_front, &right_back, &right_middle, &right_front};*/
 
 CallbackReturn DiffBotSystemHardware::on_init(const HardwareInfo & info) {
   if (SystemInterface::on_init(info) != CallbackReturn::SUCCESS) {
@@ -148,29 +155,30 @@ CallbackReturn DiffBotSystemHardware::on_deactivate(const rclcpp_lifecycle::Stat
 }
 
 return_type DiffBotSystemHardware::read(const rclcpp::Time & /*time*/, const rclcpp::Duration & period) {
-  for(size_t i = 0; i < hw_positions_.size(); i++) {
+  /*for(size_t i = 0; i < hw_positions_.size(); i++) {
     hw_positions_[i] = convertShaftAngleToRotations(motors[i]->getMotorStatus2().shaft_angle);
 
     RCLCPP_INFO(rclcpp::get_logger("DiffBotSystemHardware"), "Got position state of %.5f for %s!", hw_positions_[i], info_.joints[i].name.c_str());
-  }
+  }*/
   return return_type::OK;
 }
 
 return_type hardware_int::DiffBotSystemHardware::write(
   const rclcpp::Time & /*time*/, const rclcpp::Duration & /*period*/) {
   RCLCPP_INFO(rclcpp::get_logger("DiffBotSystemHardware"), "Writing...");
-  for(auto i = 0u; i<hw_commands_.size(); i++) {
+  /*for(auto i = 0u; i<hw_commands_.size(); i++) {
       RCLCPP_INFO(
       rclcpp::get_logger("DiffBotSystemHardware"), "Got command %.5f for '%s'!", hw_commands_[i],
       info_.joints[i].name.c_str());
       motors[i]->sendVelocitySetpoint(convertShaftAngleToRotations(hw_commands_[i]));
-  }
+  }*/
   return return_type::OK;
 }
 
 }
+/*
 float convertShaftAngleToRotations(float shaftAngle)  {
     return shaftAngle * (1.0/360.0) * (36.0/1.0) * ((2.0*3.14159*.2667)/1.0);
-  }
+  }*/
 PLUGINLIB_EXPORT_CLASS(
   hardware_int::DiffBotSystemHardware, SystemInterface)

@@ -5,6 +5,12 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
+set(CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR}/bin)
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
+set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/lib)
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+
+find_package (Threads REQUIRED)
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(hardware_interface REQUIRED)
@@ -23,11 +29,42 @@ add_library(
 target_include_directories(diff_drive PUBLIC
 $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/hardware/include>
 $<INSTALL_INTERFACE:hardware/include/hardware>
+$<INSTALL_INTERFACE:hardware/include/ctre>
 )
+
+if (${CMAKE_LIBRARY_ARCHITECTURE} STREQUAL "arm-linux-gnueabihf") # Jetson TK1 / Pi
+    set(PHOENIX_LIBS_DIR ${CMAKE_SOURCE_DIR}/hardware/lib/arm32)
+elseif (${CMAKE_LIBRARY_ARCHITECTURE} STREQUAL "aarch64-linux-gnu") # Jetson TX2
+    set(PHOENIX_LIBS_DIR ${CMAKE_SOURCE_DIR}/hardware/lib/arm64)
+else()
+    set(PHOENIX_LIBS_DIR ${CMAKE_SOURCE_DIR}/hardware/lib/x86-64)
+endif()
+
+
+#add_library(CTRE_Phoenix SHARED IMPORTED)
+#set_target_properties(CTRE_Phoenix PROPERTIES IMPORTED_LOCATION ${PHOENIX_LIBS_DIR}/libCTRE_Phoenix.so)
+
+#add_library(CTRE_PhoenixCCI SHARED IMPORTED)
+#set_target_properties(CTRE_PhoenixCCI PROPERTIES IMPORTED_LOCATION ${PHOENIX_LIBS_DIR}/libCTRE_PhoenixCCI.so)
+
+#add_library(CTRE_PhoenixTools SHARED IMPORTED)
+#set_target_properties(CTRE_PhoenixTools PROPERTIES IMPORTED_LOCATION ${PHOENIX_LIBS_DIR}/libCTRE_PhoenixTools.so)
+
+
+#target_link_libraries(diff_drive PRIVATE CTRE_Phoenix CTRE_PhoenixCCI CTRE_PhoenixTools)
+
+
+install(FILES 
+${PHOENIX_LIBS_DIR}/libCTRE_PhoenixTools.so
+${PHOENIX_LIBS_DIR}/libCTRE_PhoenixCCI.so
+${PHOENIX_LIBS_DIR}/libCTRE_Phoenix.so
+DESTINATION lib/${PROJECT_NAME}
+)
+
 ament_target_dependencies(diff_drive
     "hardware_interface"
- #   "rclcpp"
-  #  "pluginlib"
+    "rclcpp"
+    "pluginlib"
 )
 
 install(
