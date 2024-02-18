@@ -40,7 +40,6 @@ else()
     set(PHOENIX_LIBS_DIR ${CMAKE_SOURCE_DIR}/hardware/lib/x86-64)
 endif()
 
-pluginlib_export_plugin_description_file(hardware_interface hardware_int.xml)
 
 
 install(FILES 

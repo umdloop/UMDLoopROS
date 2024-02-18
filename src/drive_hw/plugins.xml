@@ -1,0 +1,5 @@
+<library path="drive_hw">
+  <class type="drive_hw::DriveHw" base_class_type="hardware_interface::SystemInterface">
+    <description>This is a square plugin.</description>
+  </class>
+</library>
