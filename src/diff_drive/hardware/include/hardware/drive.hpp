@@ -53,7 +53,7 @@ private:
   std::vector<double> hw_velocities_;
   //The output shaft angle in degrees with a resolution of 1 deg and a maximum range of 32767
   //goes from degrees, to motor rotations, to output rotations, to meters (covered by rotation of the wheel)
-  float convertShaftAngleToRotations(float shaftAngle);
+  float convertTalonSRXUnitsToMeters(float nativeSensorUnits);
   float convertMPStoTalonSRXUnits(float mps);
 };
 

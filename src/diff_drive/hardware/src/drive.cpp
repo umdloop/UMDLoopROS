@@ -216,16 +216,11 @@ namespace hardware_int
 
 }
 
-float convertShaftAngleToRotations(float shaftAngle)
-{
-  return shaftAngle * (1.0 / 360.0) * (36.0 / 1.0) * ((2.0 * 3.14159 * .2667) / 1.0);
-}
-
 // m/s -> s/ms -> to 100ms -> rotation / m -> units / rotation = units / 100ms
 // god i hate ctre who picks units of units/100ms. genuinely insane.
 float convertMPStoTalonSRXUnits(float mps)
 {
-  return (5.0 / 1.0) * (1.0 / 1000.0) * (10.0 / 1.0) * (1.0 / 3.14159 * .2667) * ((1 + (46.0 / 11.0)) * (1 + (46.0 / 11.0)) * (1 + (46.0 / 11.0)) * 28.0);
+  return mps * (1.0 / 1000.0) * (10.0 / 1.0) * (1.0 / 3.14159 * .2667) * ((1 + (46.0 / 11.0)) * (1 + (46.0 / 11.0)) * (1 + (46.0 / 11.0)) * 28.0);
 }
 
 // this is probably wrong?
