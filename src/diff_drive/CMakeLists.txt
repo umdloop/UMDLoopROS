@@ -40,18 +40,7 @@ else()
     set(PHOENIX_LIBS_DIR ${CMAKE_SOURCE_DIR}/hardware/lib/x86-64)
 endif()
 
-
-#add_library(CTRE_Phoenix SHARED IMPORTED)
-#set_target_properties(CTRE_Phoenix PROPERTIES IMPORTED_LOCATION ${PHOENIX_LIBS_DIR}/libCTRE_Phoenix.so)
-
-#add_library(CTRE_PhoenixCCI SHARED IMPORTED)
-#set_target_properties(CTRE_PhoenixCCI PROPERTIES IMPORTED_LOCATION ${PHOENIX_LIBS_DIR}/libCTRE_PhoenixCCI.so)
-
-#add_library(CTRE_PhoenixTools SHARED IMPORTED)
-#set_target_properties(CTRE_PhoenixTools PROPERTIES IMPORTED_LOCATION ${PHOENIX_LIBS_DIR}/libCTRE_PhoenixTools.so)
-
-
-#target_link_libraries(diff_drive PRIVATE CTRE_Phoenix CTRE_PhoenixCCI CTRE_PhoenixTools)
+pluginlib_export_plugin_description_file(hardware_interface hardware_int.xml)
 
 
 install(FILES 
