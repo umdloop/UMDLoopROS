@@ -14,7 +14,7 @@
 #include "rclcpp_lifecycle/state.hpp"
 
 
-namespace hardware_int
+namespace diff_drive
 {
 class DiffBotSystemHardware : public hardware_interface::SystemInterface
 {

@@ -21,7 +21,7 @@ ament_target_dependencies(
   "pluginlib"
   "hardware_interface"
 )
-pluginlib_export_plugin_description_file(hardware_interface plugins.xml)
+#pluginlib_export_plugin_description_file(hardware_interface plugins.xml)
 # Causes the visibility macros to use dllexport rather than dllimport,
 # which is appropriate when building the dll but not consuming it.
 target_compile_definitions(drive_hw PRIVATE "DRIVE_HW_BUILDING_LIBRARY")

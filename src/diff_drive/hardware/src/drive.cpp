@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "hardware/drive.hpp"
+#include "diff_drive/drive.hpp"
 
 #include <chrono>
 #include <cmath>
@@ -30,15 +30,17 @@
 
 using namespace hardware_interface;
 using namespace std;
+
+
 using namespace ctre::phoenix;
 using namespace ctre::phoenix::platform;
 using namespace ctre::phoenix::motorcontrol;
 using namespace ctre::phoenix::motorcontrol::can;
 
-namespace hardware_int
+namespace diff_drive
 {
   TalonSRX left_back(0);
-  TalonSRX left_middle(1);
+  /*TalonSRX left_middle(1);
   TalonSRX left_front(2);
 
   TalonSRX right_back(3);
@@ -46,7 +48,7 @@ namespace hardware_int
   TalonSRX right_front(5);
   int kTimeoutMs = 100;
 
-  std::vector<TalonSRX *> motors = {&left_back, &left_middle, &left_front, &right_back, &right_middle, &right_front};
+  std::vector<TalonSRX *> motors = {&left_back, &left_middle, &left_front, &right_back, &right_middle, &right_front};*/
 
   CallbackReturn DiffBotSystemHardware::on_init(const HardwareInfo &info)
   {
@@ -108,7 +110,7 @@ namespace hardware_int
       }
     }
     /* Motor controller initialization */
-
+    /*
     for (auto i = 0u; i < motors.size(); i++)
     {
       motors[i]->ConfigFactoryDefault();
@@ -128,7 +130,7 @@ namespace hardware_int
       motors[i]->Config_kP(0, 0.22, kTimeoutMs);
       motors[i]->Config_kI(0, 0.0, kTimeoutMs);
       motors[i]->Config_kD(0, 0.0, kTimeoutMs);
-    }
+    }*/
     return CallbackReturn::SUCCESS;
   }
 
@@ -193,14 +195,14 @@ namespace hardware_int
   {
     for (size_t i = 0; i < hw_positions_.size(); i++)
     {
-      hw_positions_[i] = convertTalonSRXUnitsToMeters(motors[i]->GetSelectedSensorPosition());
+      /*hw_positions_[i] = convertTalonSRXUnitsToMeters(motors[i]->GetSelectedSensorPosition());
 
-      RCLCPP_INFO(rclcpp::get_logger("DiffBotSystemHardware"), "Got position state of %.5f for %s!", hw_positions_[i], info_.joints[i].name.c_str());
+      RCLCPP_INFO(rclcpp::get_logger("DiffBotSystemHardware"), "Got position state of %.5f for %s!", hw_positions_[i], info_.joints[i].name.c_str());*/
     }
     return return_type::OK;
   }
 
-  return_type hardware_int::DiffBotSystemHardware::write(
+  return_type DiffBotSystemHardware::write(
       const rclcpp::Time & /*time*/, const rclcpp::Duration & /*period*/)
   {
     RCLCPP_INFO(rclcpp::get_logger("DiffBotSystemHardware"), "Writing...");
@@ -209,7 +211,7 @@ namespace hardware_int
       RCLCPP_INFO(
           rclcpp::get_logger("DiffBotSystemHardware"), "Got command %.5f for '%s'!", hw_commands_[i],
           info_.joints[i].name.c_str());
-      motors[i]->Set(ControlMode::Velocity, convertMPStoTalonSRXUnits(hw_commands_[i]));
+      /*motors[i]->Set(ControlMode::Velocity, convertMPStoTalonSRXUnits(hw_commands_[i]));*/
     }
     return return_type::OK;
   }
@@ -229,5 +231,6 @@ float convertTalonSRXUnitsToMeters(float nativeSensorUnits)
 {
   return nativeSensorUnits * (1.0 / ((1 + (46.0 / 11.0)) * (1 + (46.0 / 11.0)) * (1 + (46.0 / 11.0)) * 28.0)) * (3.14159 * .2667) / 1.0;
 }
+
 PLUGINLIB_EXPORT_CLASS(
-    hardware_int::DiffBotSystemHardware, SystemInterface)
+  diff_drive::DiffBotSystemHardware, hardware_interface::SystemInterface)

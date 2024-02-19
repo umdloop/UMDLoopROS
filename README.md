@@ -21,3 +21,11 @@ sudo apt-get install ros-humble-ros2-controllers
 sudo apt-get install ros-humble-gazebo-ros2-control
 ```
 
+## Making Phoenix Not Mad
+
+```
+sudo nano /etc/ld.so.conf.d/randomLibs.conf
+```
+
+Add the path to the CTRE libs folder. Everything should work just fine after that!
+
