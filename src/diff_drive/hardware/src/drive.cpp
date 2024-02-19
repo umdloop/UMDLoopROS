@@ -40,7 +40,7 @@ using namespace ctre::phoenix::motorcontrol::can;
 namespace diff_drive
 {
   TalonSRX left_back(0);
-  /*TalonSRX left_middle(1);
+  TalonSRX left_middle(1);
   TalonSRX left_front(2);
 
   TalonSRX right_back(3);
@@ -48,7 +48,7 @@ namespace diff_drive
   TalonSRX right_front(5);
   int kTimeoutMs = 100;
 
-  std::vector<TalonSRX *> motors = {&left_back, &left_middle, &left_front, &right_back, &right_middle, &right_front};*/
+  std::vector<TalonSRX *> motors = {&left_back, &left_middle, &left_front, &right_back, &right_middle, &right_front};
 
   CallbackReturn DiffBotSystemHardware::on_init(const HardwareInfo &info)
   {
@@ -110,7 +110,7 @@ namespace diff_drive
       }
     }
     /* Motor controller initialization */
-    /*
+    
     for (auto i = 0u; i < motors.size(); i++)
     {
       motors[i]->ConfigFactoryDefault();
@@ -130,7 +130,7 @@ namespace diff_drive
       motors[i]->Config_kP(0, 0.22, kTimeoutMs);
       motors[i]->Config_kI(0, 0.0, kTimeoutMs);
       motors[i]->Config_kD(0, 0.0, kTimeoutMs);
-    }*/
+    }
     return CallbackReturn::SUCCESS;
   }
 
@@ -195,9 +195,9 @@ namespace diff_drive
   {
     for (size_t i = 0; i < hw_positions_.size(); i++)
     {
-      /*hw_positions_[i] = convertTalonSRXUnitsToMeters(motors[i]->GetSelectedSensorPosition());
+      hw_positions_[i] = convertTalonSRXUnitsToMeters(motors[i]->GetSelectedSensorPosition());
 
-      RCLCPP_INFO(rclcpp::get_logger("DiffBotSystemHardware"), "Got position state of %.5f for %s!", hw_positions_[i], info_.joints[i].name.c_str());*/
+      RCLCPP_INFO(rclcpp::get_logger("DiffBotSystemHardware"), "Got position state of %.5f for %s!", hw_positions_[i], info_.joints[i].name.c_str());
     }
     return return_type::OK;
   }
@@ -211,26 +211,28 @@ namespace diff_drive
       RCLCPP_INFO(
           rclcpp::get_logger("DiffBotSystemHardware"), "Got command %.5f for '%s'!", hw_commands_[i],
           info_.joints[i].name.c_str());
-      /*motors[i]->Set(ControlMode::Velocity, convertMPStoTalonSRXUnits(hw_commands_[i]));*/
+      motors[i]->Set(ControlMode::Velocity, convertMPStoTalonSRXUnits(hw_commands_[i]));
     }
     return return_type::OK;
   }
 
-}
-
-// m/s -> s/ms -> to 100ms -> rotation / m -> units / rotation = units / 100ms
+  // m/s -> s/ms -> to 100ms -> rotation / m -> units / rotation = units / 100ms
 // god i hate ctre who picks units of units/100ms. genuinely insane.
-float convertMPStoTalonSRXUnits(float mps)
+float DiffBotSystemHardware::convertMPStoTalonSRXUnits(float mps)
 {
   return mps * (1.0 / 1000.0) * (10.0 / 1.0) * (1.0 / 3.14159 * .2667) * ((1 + (46.0 / 11.0)) * (1 + (46.0 / 11.0)) * (1 + (46.0 / 11.0)) * 28.0);
 }
 
 // this is probably wrong?
 //  units/rot / ms -> ms/s -> m/rot->
-float convertTalonSRXUnitsToMeters(float nativeSensorUnits)
+float DiffBotSystemHardware::convertTalonSRXUnitsToMeters(float nativeSensorUnits)
 {
   return nativeSensorUnits * (1.0 / ((1 + (46.0 / 11.0)) * (1 + (46.0 / 11.0)) * (1 + (46.0 / 11.0)) * 28.0)) * (3.14159 * .2667) / 1.0;
 }
+
+}
+
+
 
 PLUGINLIB_EXPORT_CLASS(
   diff_drive::DiffBotSystemHardware, hardware_interface::SystemInterface)
