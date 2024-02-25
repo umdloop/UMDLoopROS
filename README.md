@@ -29,3 +29,7 @@ sudo nano /etc/ld.so.conf.d/randomLibs.conf
 
 Add the path to the CTRE libs folder. Everything should work just fine after that!
 
+```
+/home/mdurrani/ROS/UMDLoopROS/src/diff_drive/hardware/lib/x86-64
+```
+

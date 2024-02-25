@@ -39,16 +39,16 @@ using namespace ctre::phoenix::motorcontrol::can;
 
 namespace diff_drive
 {
-  TalonSRX left_back(0);
-  TalonSRX left_middle(1);
-  TalonSRX left_front(2);
+  TalonSRX left_back(1);
+  /*TalonSRX left_middle(1);
+  TalonSRX left_front(2);*/
 
-  TalonSRX right_back(3);
-  TalonSRX right_middle(4);
-  TalonSRX right_front(5);
+  TalonSRX right_back(2);
+  /*TalonSRX right_middle(4);
+  TalonSRX right_front(5);*/
   int kTimeoutMs = 100;
-
-  std::vector<TalonSRX *> motors = {&left_back, &left_middle, &left_front, &right_back, &right_middle, &right_front};
+  
+  std::vector<TalonSRX *> motors = {&left_back,&right_back,};
 
   CallbackReturn DiffBotSystemHardware::on_init(const HardwareInfo &info)
   {
@@ -60,6 +60,7 @@ namespace diff_drive
     hw_positions_.resize(info_.joints.size(), numeric_limits<double>::quiet_NaN());
     hw_velocities_.resize(info_.joints.size(), numeric_limits<double>::quiet_NaN());
     hw_commands_.resize(info_.joints.size(), numeric_limits<double>::quiet_NaN());
+    last_hw_commands_.resize(info_.joints.size(), numeric_limits<double>::quiet_NaN());
 
     for (const ComponentInfo &joint : info_.joints)
     {
@@ -115,21 +116,13 @@ namespace diff_drive
     {
       motors[i]->ConfigFactoryDefault();
       motors[i]->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder, 0, kTimeoutMs);
-      if(i<3) {
+      if(i<1) { //change this when more motors are added
         motors[i]->SetSensorPhase(true);
       }
       else {
         motors[i]->SetSensorPhase(false);
       }
       
-      motors[i]->ConfigNominalOutputForward(0, kTimeoutMs);
-      motors[i]->ConfigNominalOutputReverse(0, kTimeoutMs);
-      motors[i]->ConfigPeakOutputForward(1, kTimeoutMs);
-      motors[i]->ConfigPeakOutputReverse(-1, kTimeoutMs);
-      motors[i]->Config_kF(0, 0.1097, kTimeoutMs);
-      motors[i]->Config_kP(0, 0.22, kTimeoutMs);
-      motors[i]->Config_kI(0, 0.0, kTimeoutMs);
-      motors[i]->Config_kD(0, 0.0, kTimeoutMs);
     }
     return CallbackReturn::SUCCESS;
   }
@@ -195,26 +188,32 @@ namespace diff_drive
   {
     for (size_t i = 0; i < hw_positions_.size(); i++)
     {
-      hw_positions_[i] = convertTalonSRXUnitsToMeters(motors[i]->GetSelectedSensorPosition());
+      /*hw_positions_[i] = convertTalonSRXUnitsToMeters(motors[i]->GetSelectedSensorPosition());
 
-      RCLCPP_INFO(rclcpp::get_logger("DiffBotSystemHardware"), "Got position state of %.5f for %s!", hw_positions_[i], info_.joints[i].name.c_str());
+      RCLCPP_INFO(rclcpp::get_logger("DiffBotSystemHardware"), "Got position state of %.5f for %s!", hw_positions_[i], info_.joints[i].name.c_str());*/
     }
     return return_type::OK;
   }
 
-  return_type DiffBotSystemHardware::write(
-      const rclcpp::Time & /*time*/, const rclcpp::Duration & /*period*/)
+return_type DiffBotSystemHardware::write(
+    const rclcpp::Time & /*time*/, const rclcpp::Duration & /*period*/)
+{
+  RCLCPP_INFO(rclcpp::get_logger("DiffBotSystemHardware"), "Writing...");
+  for (auto i = 0u; i < hw_commands_.size(); i++)
   {
-    RCLCPP_INFO(rclcpp::get_logger("DiffBotSystemHardware"), "Writing...");
-    for (auto i = 0u; i < hw_commands_.size(); i++)
+    if (hw_commands_[i] != last_hw_commands_[i]) // Compare with the previous command
     {
       RCLCPP_INFO(
           rclcpp::get_logger("DiffBotSystemHardware"), "Got command %.5f for '%s'!", hw_commands_[i],
           info_.joints[i].name.c_str());
-      motors[i]->Set(ControlMode::Velocity, convertMPStoTalonSRXUnits(hw_commands_[i]));
     }
-    return return_type::OK;
+    motors[i]->Set(ControlMode::PercentOutput, clamp(hw_commands_[i]/1.8153,-.1,.1)); //theoretical max speed...this should not work
+    unmanaged::Unmanaged::FeedEnable(100); //in non FRC applications this is needed!
+    last_hw_commands_[i] = hw_commands_[i]; // Update the last command
   }
+  return return_type::OK;
+}
+
 
   // m/s -> s/ms -> to 100ms -> rotation / m -> units / rotation = units / 100ms
 // god i hate ctre who picks units of units/100ms. genuinely insane.
