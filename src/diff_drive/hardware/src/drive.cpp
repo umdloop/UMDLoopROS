@@ -198,16 +198,16 @@ namespace diff_drive
 return_type DiffBotSystemHardware::write(
     const rclcpp::Time & /*time*/, const rclcpp::Duration & /*period*/)
 {
-  RCLCPP_INFO(rclcpp::get_logger("DiffBotSystemHardware"), "Writing...");
+  //RCLCPP_INFO(rclcpp::get_logger("DiffBotSystemHardware"), "Writing...");
   for (auto i = 0u; i < hw_commands_.size(); i++)
   {
     if (hw_commands_[i] != last_hw_commands_[i]) // Compare with the previous command
     {
       RCLCPP_INFO(
-          rclcpp::get_logger("DiffBotSystemHardware"), "Got command %.5f for '%s'!", hw_commands_[i],
-          info_.joints[i].name.c_str());
+          rclcpp::get_logger("DiffBotSystemHardware"), "Got command %.5f for '%s'! Applied %f", hw_commands_[i],
+          info_.joints[i].name.c_str(), clamp(hw_commands_[i]/7.5,-.1,.1));
     }
-    motors[i]->Set(ControlMode::PercentOutput, clamp(hw_commands_[i]/1.8153,-.1,.1)); //theoretical max speed...this should not work
+    motors[i]->Set(ControlMode::PercentOutput, clamp(hw_commands_[i]/7.5,-.1,.1)); //theoretical max speed...this should not work
     unmanaged::Unmanaged::FeedEnable(100); //in non FRC applications this is needed!
     last_hw_commands_[i] = hw_commands_[i]; // Update the last command
   }
