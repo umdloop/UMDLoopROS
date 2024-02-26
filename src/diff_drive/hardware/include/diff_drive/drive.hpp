@@ -51,8 +51,8 @@ private:
   std::vector<double> last_hw_commands_;
   //The output shaft angle in degrees with a resolution of 1 deg and a maximum range of 32767
   //goes from degrees, to motor rotations, to output rotations, to meters (covered by rotation of the wheel)
-  float convertTalonSRXUnitsToMeters(float nativeSensorUnits);
-  float convertMPStoTalonSRXUnits(float mps);
+  double convertTalonSRXUnitsToMeters(float nativeSensorUnits);
+  double convertMPStoTalonSRXUnits(float mps);
 };
 
 }  // namespace ros2_control_demo_example_2
