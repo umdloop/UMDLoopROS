@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="1000-Reduced Modelv6">
+  <link
+    name="base">
+    <inertial>
+      <origin
+        xyz="-0.0420894636209823 -0.0119430230768063 0.014020548545619"
+        rpy="0 0 0" />
+      <mass
+        value="2.98521046700997" />
+      <inertia
+        ixx="0.0175339728289488"
+        ixy="7.37808132558332E-20"
+        ixz="3.19556197905686E-20"
+        iyy="0.0159050817158523"
+        iyz="1.06795507810174E-18"
+        izz="0.033340805189063" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://1000-Reduced Modelv6/meshes/base.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://1000-Reduced Modelv6/meshes/base.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="shoulder">
+    <inertial>
+      <origin
+        xyz="0.00527918694960809 0.0774819916801578 -0.0133622294690042"
+        rpy="0 0 0" />
+      <mass
+        value="4.54258438464217" />
+      <inertia
+        ixx="0.0149524360381011"
+        ixy="1.05243789551392E-08"
+        ixz="-0.00175247039872407"
+        iyy="0.0097049330132567"
+        iyz="-6.42446745451681E-09"
+        izz="0.0128509901610833" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://1000-Reduced Modelv6/meshes/shoulder.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://1000-Reduced Modelv6/meshes/shoulder.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Base Yaw"
+    type="revolute">
+    <origin
+      xyz="-0.0420894636209815 -0.0119616169931191 0.0182598424192986"
+      rpy="1.5707963267949 0 1.05545161052463" />
+    <parent
+      link="base" />
+    <child
+      link="shoulder" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="bicep">
+    <inertial>
+      <origin
+        xyz="-0.0416416588937773 -7.41489180611232E-08 -0.48063013151933"
+        rpy="0 0 0" />
+      <mass
+        value="4.21157397014607" />
+      <inertia
+        ixx="0.0265183368486382"
+        ixy="1.2339772092184E-08"
+        ixz="-8.0388083234103E-06"
+        iyy="0.0238241678969636"
+        iyz="1.47058893537003E-08"
+        izz="0.00481440620919812" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://1000-Reduced Modelv6/meshes/bicep.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.529411764705882 0.549019607843137 0.549019607843137 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://1000-Reduced Modelv6/meshes/bicep.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="shoulder pitch"
+    type="revolute">
+    <origin
+      xyz="-0.0357971138440272 0.108175 0.00906194434350591"
+      rpy="2.47061567686307 0.515344716270268 0" />
+    <parent
+      link="shoulder" />
+    <child
+      link="bicep" />
+    <axis
+      xyz="-1 0 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="forearm">
+    <inertial>
+      <origin
+        xyz="-0.0433904621274588 4.81371441699019E-06 0.483997979293337"
+        rpy="0 0 0" />
+      <mass
+        value="4.35871818699448" />
+      <inertia
+        ixx="0.0266896327168114"
+        ixy="1.54311841827395E-07"
+        ixz="6.61231386236101E-06"
+        iyy="0.023915444728425"
+        iyz="-7.15857024670289E-07"
+        izz="0.00491230206200247" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://1000-Reduced Modelv6/meshes/forearm.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://1000-Reduced Modelv6/meshes/forearm.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="elbow pitch"
+    type="revolute">
+    <origin
+      xyz="0.0030875 0 -0.58189"
+      rpy="0.51635 0 3.1416" />
+    <parent
+      link="bicep" />
+    <child
+      link="forearm" />
+    <axis
+      xyz="-1 0 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="wrist pitch">
+    <inertial>
+      <origin
+        xyz="-0.0455611950385227 -0.00725901759095772 0.00992070602753697"
+        rpy="0 0 0" />
+      <mass
+        value="0.86236150071068" />
+      <inertia
+        ixx="0.00118936565821361"
+        ixy="8.11046843463551E-05"
+        ixz="-8.67557302037531E-05"
+        iyy="0.000868864304032832"
+        iyz="8.97048798969999E-05"
+        izz="0.00119688008723862" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://1000-Reduced Modelv6/meshes/wrist pitch.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://1000-Reduced Modelv6/meshes/wrist pitch.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="wrist pitch"
+    type="revolute">
+    <origin
+      xyz="0 0 0.581887499995086"
+      rpy="1.29896997033974 -0.262305000585875 2.39226953786024" />
+    <parent
+      link="forearm" />
+    <child
+      link="wrist pitch" />
+    <axis
+      xyz="-0.707106781186547 0 0.707106781186548" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="wrist yaw">
+    <inertial>
+      <origin
+        xyz="-0.00573736378208815 0.0709654882442483 0.0863623163084948"
+        rpy="0 0 0" />
+      <mass
+        value="0.358868673438875" />
+      <inertia
+        ixx="0.000414309598600639"
+        ixy="-9.2583446541487E-06"
+        ixz="-1.42368460656332E-05"
+        iyy="0.000356554187952872"
+        iyz="-1.79636818948081E-08"
+        izz="0.000413497141640662" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://1000-Reduced Modelv6/meshes/wrist yaw.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://1000-Reduced Modelv6/meshes/wrist yaw.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="wrist yaw"
+    type="revolute">
+    <origin
+      xyz="0.017777291445819 0 -0.017777291445819"
+      rpy="-0.96359754736019 0.518498041049501 0.951194425773634" />
+    <parent
+      link="wrist pitch" />
+    <child
+      link="wrist yaw" />
+    <axis
+      xyz="0.706887306729703 0.0176165407866436 0.707106776289932" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="wrist roll">
+    <inertial>
+      <origin
+        xyz="-0.00276942184890096 0.0187204574927389 0.0271220665563111"
+        rpy="0 0 0" />
+      <mass
+        value="0.578594077815313" />
+      <inertia
+        ixx="0.00049174931542777"
+        ixy="-3.3897062265723E-06"
+        ixz="-1.18435403501392E-07"
+        iyy="0.000572183533604792"
+        iyz="9.7840554837208E-06"
+        izz="0.000301532531672388" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://1000-Reduced Modelv6/meshes/wrist roll.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://1000-Reduced Modelv6/meshes/wrist roll.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="wrist roll"
+    type="revolute">
+    <origin
+      xyz="0.00632947155943084 0.272267270409697 0.1004658595574"
+      rpy="-1.56931940382504 -0.827547058181322 3.13950582346102" />
+    <parent
+      link="wrist yaw" />
+    <child
+      link="wrist roll" />
+    <axis
+      xyz="0.000668221963468187 0.0176603835099617 -0.999843819970743" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+</robot>
