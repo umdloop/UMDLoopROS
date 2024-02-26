@@ -122,7 +122,43 @@ def generate_launch_description():
         )
     )
 
+
+
+    config_file_path = PathJoinSubstitution(
+                [FindPackageShare("diff_drive"), "config", "input_config.yaml"]
+            )
+    joy_params = PathJoinSubstitution(
+                [FindPackageShare("diff_drive"), "config", "joystick.yaml"]
+            )
+    
+    joy_node = Node(
+            package='joy', executable='joy_node', name='joy_node',
+            parameters=[joy_params])
+        
+    teleop_twist_joy_node = Node(
+            package='teleop_twist_joy', executable='teleop_node',
+            name='teleop_twist_joy_node', 
+            parameters=[config_file_path],
+            remappings={('/cmd_vel', '/joy_cmd_vel')},
+            )
+    teleop_twist_keyboard_node = Node(
+            package='teleop_twist_keyboard', executable='teleop_twist_keyboard',
+            name='teleop_twist_keyboard_node', 
+            remappings={('/cmd_vel', '/key_cmd_vel')},
+            output='screen',
+            prefix = 'xterm -e',
+            )
+    twist_mux = Node(
+            package="twist_mux",
+            executable="twist_mux",
+            parameters=[config_file_path],
+            remappings=[('/cmd_vel_out','/diffbot_base_controller/cmd_vel')]
+        )
     nodes = [
+        joy_node,
+        teleop_twist_joy_node,
+        teleop_twist_keyboard_node,
+        twist_mux,
         control_node,
         robot_state_pub_node,
         joint_state_broadcaster_spawner,
