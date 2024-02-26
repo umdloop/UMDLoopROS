@@ -40,7 +40,7 @@ using namespace ctre::phoenix::motorcontrol::can;
 namespace diff_drive
 {
   TalonSRX left_back(1);
-  float wheel_radius = 0.5;
+  float wheel_radius = 0.13335;
   /*TalonSRX left_middle(1);
   TalonSRX left_front(2);*/
 
