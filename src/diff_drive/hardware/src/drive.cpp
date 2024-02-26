@@ -40,6 +40,7 @@ using namespace ctre::phoenix::motorcontrol::can;
 namespace diff_drive
 {
   TalonSRX left_back(1);
+  float wheel_radius = 0.5;
   /*TalonSRX left_middle(1);
   TalonSRX left_front(2);*/
 
@@ -198,35 +199,35 @@ namespace diff_drive
 return_type DiffBotSystemHardware::write(
     const rclcpp::Time & /*time*/, const rclcpp::Duration & /*period*/)
 {
-  RCLCPP_INFO(rclcpp::get_logger("DiffBotSystemHardware"), "Writing...");
+  //RCLCPP_INFO(rclcpp::get_logger("DiffBotSystemHardware"), "Writing...");
   for (auto i = 0u; i < hw_commands_.size(); i++)
   {
     if (hw_commands_[i] != last_hw_commands_[i]) // Compare with the previous command
     {
       RCLCPP_INFO(
-          rclcpp::get_logger("DiffBotSystemHardware"), "Got command %.5f for '%s'!", hw_commands_[i],
-          info_.joints[i].name.c_str());
+          rclcpp::get_logger("DiffBotSystemHardware"), "Got command %.5f for '%s'! We tell it to do %f\n", hw_commands_[i]*wheel_radius,
+          info_.joints[i].name.c_str(), convertTalonSRXUnitsToMeters(motors[i]->GetSelectedSensorVelocity()));
     }
-    motors[i]->Set(ControlMode::PercentOutput, clamp(hw_commands_[i]/1.8153,-.1,.1)); //theoretical max speed...this should not work
+    motors[i]->Set(ControlMode::Velocity, convertMPStoTalonSRXUnits(hw_commands_[i]*wheel_radius)); //theoretical max speed...this should not work
     unmanaged::Unmanaged::FeedEnable(100); //in non FRC applications this is needed!
     last_hw_commands_[i] = hw_commands_[i]; // Update the last command
   }
   return return_type::OK;
 }
 
-
   // m/s -> s/ms -> to 100ms -> rotation / m -> units / rotation = units / 100ms
 // god i hate ctre who picks units of units/100ms. genuinely insane.
 float DiffBotSystemHardware::convertMPStoTalonSRXUnits(float mps)
 {
-  return mps * (1.0 / 1000.0) * (10.0 / 1.0) * (1.0 / 3.14159 * .2667) * ((1 + (46.0 / 11.0)) * (1 + (46.0 / 11.0)) * (1 + (46.0 / 11.0)) * 28.0);
+  return mps * (1.0 / 1000.0) * (10.0 / 1.0) * (1.0 / 2*3.14159 * wheel_radius) * ((1 + (46.0 / 11.0)) * (1 + (46.0 / 11.0)) * (1 + (46.0 / 11.0)) * 28.0);
 }
 
 // this is probably wrong?
 //  units/rot / ms -> ms/s -> m/rot->
 float DiffBotSystemHardware::convertTalonSRXUnitsToMeters(float nativeSensorUnits)
 {
-  return nativeSensorUnits * (1.0 / ((1 + (46.0 / 11.0)) * (1 + (46.0 / 11.0)) * (1 + (46.0 / 11.0)) * 28.0)) * (3.14159 * .2667) / 1.0;
+  return nativeSensorUnits * (1000.0 /1) * (1.0 / ((1 + (46.0 / 11.0)) * (1 + (46.0 / 11.0)) * (1 + (46.0 / 11.0)) * 28.0)) * (2*3.14159 * wheel_radius);
+  //return nativeSensorUnits * (1.0 / ((1 + (46.0 / 11.0)) * (1 + (46.0 / 11.0)) * (1 + (46.0 / 11.0)) * 28.0)) * (3.14159 * .2667) / 1.0;
 }
 
 }
