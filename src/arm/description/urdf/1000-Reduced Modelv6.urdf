@@ -3,9 +3,9 @@
      Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
      For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
 <robot
-  name="1000-Reduced Modelv6">
+  name="arm">
   <link
-    name="base">
+    name="base_link">
     <inertial>
       <origin
         xyz="-0.0420894636209823 -0.0119430230768063 0.014020548545619"
@@ -26,7 +26,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://1000-Reduced Modelv6/meshes/base.STL" />
+          filename="package://arm/description/meshes/base.STL" />
       </geometry>
       <material
         name="">
@@ -40,12 +40,12 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://1000-Reduced Modelv6/meshes/base.STL" />
+          filename="package://arm/description/meshes/base.STL" />
       </geometry>
     </collision>
   </link>
   <link
-    name="shoulder">
+    name="shoulder_link">
     <inertial>
       <origin
         xyz="0.00527918694960809 0.0774819916801578 -0.0133622294690042"
@@ -66,7 +66,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://1000-Reduced Modelv6/meshes/shoulder.STL" />
+          filename="package://arm/description/meshes/shoulder.STL" />
       </geometry>
       <material
         name="">
@@ -80,20 +80,20 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://1000-Reduced Modelv6/meshes/shoulder.STL" />
+          filename="package://arm/description/meshes/shoulder.STL" />
       </geometry>
     </collision>
   </link>
   <joint
-    name="Base Yaw"
+    name="base_yaw_joint"
     type="revolute">
     <origin
       xyz="-0.0420894636209815 -0.0119616169931191 0.0182598424192986"
       rpy="1.5707963267949 0 1.05545161052463" />
     <parent
-      link="base" />
+      link="base_link" />
     <child
-      link="shoulder" />
+      link="shoulder_link" />
     <axis
       xyz="0 1 0" />
     <limit
@@ -103,7 +103,7 @@
       velocity="0" />
   </joint>
   <link
-    name="bicep">
+    name="bicep_link">
     <inertial>
       <origin
         xyz="-0.0416416588937773 -7.41489180611232E-08 -0.48063013151933"
@@ -124,7 +124,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://1000-Reduced Modelv6/meshes/bicep.STL" />
+          filename="package://arm/description/meshes/bicep.STL" />
       </geometry>
       <material
         name="">
@@ -138,20 +138,20 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://1000-Reduced Modelv6/meshes/bicep.STL" />
+          filename="package://arm/description/meshes/bicep.STL" />
       </geometry>
     </collision>
   </link>
   <joint
-    name="shoulder pitch"
+    name="shoulder_pitch_joint"
     type="revolute">
     <origin
       xyz="-0.0357971138440272 0.108175 0.00906194434350591"
       rpy="2.47061567686307 0.515344716270268 0" />
     <parent
-      link="shoulder" />
+      link="shoulder_link" />
     <child
-      link="bicep" />
+      link="bicep_link" />
     <axis
       xyz="-1 0 0" />
     <limit
@@ -161,7 +161,7 @@
       velocity="0" />
   </joint>
   <link
-    name="forearm">
+    name="forearm_link">
     <inertial>
       <origin
         xyz="-0.0433904621274588 4.81371441699019E-06 0.483997979293337"
@@ -182,7 +182,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://1000-Reduced Modelv6/meshes/forearm.STL" />
+          filename="package://arm/description/meshes/forearm.STL" />
       </geometry>
       <material
         name="">
@@ -196,20 +196,20 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://1000-Reduced Modelv6/meshes/forearm.STL" />
+          filename="package://arm/description/meshes/forearm.STL" />
       </geometry>
     </collision>
   </link>
   <joint
-    name="elbow pitch"
+    name="elbow_pitch_joint"
     type="revolute">
     <origin
       xyz="0.0030875 0 -0.58189"
       rpy="0.51635 0 3.1416" />
     <parent
-      link="bicep" />
+      link="bicep_link" />
     <child
-      link="forearm" />
+      link="forearm_link" />
     <axis
       xyz="-1 0 0" />
     <limit
@@ -219,7 +219,7 @@
       velocity="0" />
   </joint>
   <link
-    name="wrist pitch">
+    name="wrist_pitch_link">
     <inertial>
       <origin
         xyz="-0.0455611950385227 -0.00725901759095772 0.00992070602753697"
@@ -240,7 +240,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://1000-Reduced Modelv6/meshes/wrist pitch.STL" />
+          filename="package://arm/description/meshes/wrist pitch.STL" />
       </geometry>
       <material
         name="">
@@ -254,20 +254,20 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://1000-Reduced Modelv6/meshes/wrist pitch.STL" />
+          filename="package://arm/description/meshes/wrist pitch.STL" />
       </geometry>
     </collision>
   </link>
   <joint
-    name="wrist pitch"
+    name="wrist_pitch_joint"
     type="revolute">
     <origin
       xyz="0 0 0.581887499995086"
       rpy="1.29896997033974 -0.262305000585875 2.39226953786024" />
     <parent
-      link="forearm" />
+      link="forearm_link" />
     <child
-      link="wrist pitch" />
+      link="wrist_pitch_link" />
     <axis
       xyz="-0.707106781186547 0 0.707106781186548" />
     <limit
@@ -277,7 +277,7 @@
       velocity="0" />
   </joint>
   <link
-    name="wrist yaw">
+    name="wrist_yaw_link">
     <inertial>
       <origin
         xyz="-0.00573736378208815 0.0709654882442483 0.0863623163084948"
@@ -298,7 +298,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://1000-Reduced Modelv6/meshes/wrist yaw.STL" />
+          filename="package://arm/description/meshes/wrist yaw.STL" />
       </geometry>
       <material
         name="">
@@ -312,20 +312,20 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://1000-Reduced Modelv6/meshes/wrist yaw.STL" />
+          filename="package://arm/description/meshes/wrist yaw.STL" />
       </geometry>
     </collision>
   </link>
   <joint
-    name="wrist yaw"
+    name="wrist_yaw_joint"
     type="revolute">
     <origin
       xyz="0.017777291445819 0 -0.017777291445819"
       rpy="-0.96359754736019 0.518498041049501 0.951194425773634" />
     <parent
-      link="wrist pitch" />
+      link="wrist_pitch_link" />
     <child
-      link="wrist yaw" />
+      link="wrist_yaw_link" />
     <axis
       xyz="0.706887306729703 0.0176165407866436 0.707106776289932" />
     <limit
@@ -335,7 +335,7 @@
       velocity="0" />
   </joint>
   <link
-    name="wrist roll">
+    name="wrist_roll_link">
     <inertial>
       <origin
         xyz="-0.00276942184890096 0.0187204574927389 0.0271220665563111"
@@ -356,7 +356,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://1000-Reduced Modelv6/meshes/wrist roll.STL" />
+          filename="package://arm/description/meshes/wrist roll.STL" />
       </geometry>
       <material
         name="">
@@ -370,20 +370,20 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://1000-Reduced Modelv6/meshes/wrist roll.STL" />
+          filename="package://arm/description/meshes/wrist roll.STL" />
       </geometry>
     </collision>
   </link>
   <joint
-    name="wrist roll"
+    name="wrist_roll_joint"
     type="revolute">
     <origin
       xyz="0.00632947155943084 0.272267270409697 0.1004658595574"
       rpy="-1.56931940382504 -0.827547058181322 3.13950582346102" />
     <parent
-      link="wrist yaw" />
+      link="wrist_yaw_link" />
     <child
-      link="wrist roll" />
+      link="wrist_roll_link" />
     <axis
       xyz="0.000668221963468187 0.0176603835099617 -0.999843819970743" />
     <limit
