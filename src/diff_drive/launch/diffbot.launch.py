@@ -152,8 +152,9 @@ def generate_launch_description():
             package="twist_mux",
             executable="twist_mux",
             parameters=[config_file_path],
-            remappings=[('/cmd_vel_out','/diffbot_base_controller/cmd_vel')]
+            remappings=[('/cmd_vel_out','/diffbot_base_controller/cmd_vel_unstamped')]
         )
+
     nodes = [
         joy_node,
         teleop_twist_joy_node,
