@@ -18,9 +18,13 @@ rosdep install --from-path src --ignore-src -y
 sudo nano /etc/ld.so.conf.d/randomLibs.conf
 ```
 
-Add the path to the CTRE libs folder. Everything should work just fine after that!
+Add the path to the CTRE libs folder, making sure you add the right folder to the right platform.
 
 ```
 /home/mdurrani/ROS/UMDLoopROS/src/diff_drive/hardware/lib/x86-64
 ```
 
+Finally, run:
+```
+sudo ldconfig
+```
