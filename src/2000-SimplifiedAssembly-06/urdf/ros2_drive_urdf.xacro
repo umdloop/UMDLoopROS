@@ -1,0 +1,237 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="ros2_drive_urdf">
+  <link name="chassis">
+    <inertial>
+      <origin xyz="-0.00887504191546608 0.020776726955146 0.0454280414162516" rpy="0 0 0" />
+      <mass value="43.2370874728494" />
+      <inertia ixx="1.508630498225" ixy="-0.000799866263484797" ixz="-0.00302461371941329" iyy="0.602015519267222" iyz="-8.05813048835149E-05" izz="1.87554173268809" />
+    </inertial>
+    <visual>
+      <material name="silver" >
+        <color rgba="0.7725490196078432 0.788235294117647 0.7803921568627451 1.0" />
+      </material>
+      <geometry>
+        <mesh filename="package://2000-SimplifiedAssembly-06/meshes/visual/chassis.STL" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    </link>
+  <link name="Left_Suspension">
+    <inertial>
+      <origin xyz="0.111093557121804 0.187126569842287 -0.340094885421459" rpy="0 0 0" />
+      <mass value="1.10263470117799" />
+      <inertia ixx="0.0018504672878501" ixy="-0.00128852305449285" ixz="1.35549642647557E-07" iyy="0.00422524928216443" iyz="9.82687561010457E-08" izz="0.00533633169080947" />
+    </inertial>
+    <visual>
+      <material name="silver" >
+        <color rgba="0.7725490196078432 0.788235294117647 0.7803921568627451 1.0" />
+      </material>
+      <geometry>
+        <mesh filename="package://2000-SimplifiedAssembly-06/meshes/visual/Left_Suspension.STL" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    </link>
+  <joint name="Left_Rocker" type="fixed">
+    <origin xyz="0.0575326660125926 0.0698099454270569 -0.246502069543578" rpy="1.5707963267949 0 0" />
+    <parent link="chassis" />
+    <child link="Left_Suspension" />
+    <axis xyz="0 0 0" />
+    <visual>
+      <material name="silver" >
+        <color rgba="0.7725490196078432 0.788235294117647 0.7803921568627451 1.0" />
+      </material>
+      <geometry>
+        <mesh filename="package://2000-SimplifiedAssembly-06/meshes/visual/Left_Rocker.STL" scale="1 1 1"/>
+      </geometry>
+    </visual>
+  </joint>
+  <link name="Left_Rocker2Bogey">
+    <inertial>
+      <origin xyz="0.193522781618893 -0.258638121507884 -0.341276339007172" rpy="0 0 0" />
+      <mass value="8.07600234748551" />
+      <inertia ixx="0.0344482977086866" ixy="-0.000135915102521435" ixz="-0.00391928759985855" iyy="0.034867993722475" iyz="-0.00116357144278888" izz="0.0615558237005749" />
+    </inertial>
+    <visual>
+      <material name="silver" >
+        <color rgba="0.7725490196078432 0.788235294117647 0.7803921568627451 1.0" />
+      </material>
+      <geometry>
+        <mesh filename="package://2000-SimplifiedAssembly-06/meshes/visual/Left_Rocker2Bogey.STL" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    </link>
+  <joint name="Left_Bogey" type="fixed">
+    <origin xyz="0.109303222012017 0.193458474691488 -0.0510722909097063" rpy="-0.0419186071200392 0.140189618805035 0.141568736826726" />
+    <parent link="Left_Suspension" />
+    <child link="Left_Rocker2Bogey" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <link name="Left_FrontWheel">
+    <inertial>
+      <origin xyz="-1.32537553709788E-08 -1.35525446420814E-09 -5.63769337097453E-06" rpy="0 0 0" />
+      <mass value="3.28964697091935" />
+      <inertia ixx="0.0163807715413332" ixy="6.81280698522355E-10" ixz="9.85994636137641E-10" iyy="0.0163807689937358" iyz="-5.16910702660585E-10" izz="0.0296783757970707" />
+    </inertial>
+    <visual>
+      <material name="black" >
+        <color rgba="0.0 0.0 0.0 1.0" />
+        
+      </material>
+      <geometry>
+        <mesh filename="package://2000-SimplifiedAssembly-06/meshes/visual/Left_FrontWheel.STL" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    </link>
+  <joint name="Left_FrontMotor" type="fixed">
+    <origin xyz="0.420116653006438 -0.311178663383762 -0.321965022741944" rpy="-3.10907021451776 0.142647279967552 -2.62794863504613" />
+    <parent link="Left_Rocker2Bogey" />
+    <child link="Left_FrontWheel" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <link name="Left_MiddleWheel">
+    <inertial>
+      <origin xyz="-1.32515935447053E-08 -1.56928868511041E-09 -5.6376731948915E-06" rpy="0 0 0" />
+      <mass value="3.28964697021264" />
+      <inertia ixx="0.0163807715389607" ixy="6.83196766521071E-10" ixz="9.96122851048165E-10" iyy="0.0163807690022176" iyz="-4.85735783984304E-10" izz="0.0296783758236465" />
+    </inertial>
+    <visual>
+      <material name="black" >
+        <color rgba="0.0 0.0 0.0 1.0" />
+      </material>
+      <geometry>
+        <mesh filename="package://2000-SimplifiedAssembly-06/meshes/visual/Left_MiddleWheel.STL" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    </link>
+  <joint name="Left_MiddleMotor" type="fixed">
+    <origin xyz="-0.0377496814532355 -0.221089089566748 -0.382855126553232" rpy="2.99569987669468 0.0107184424391394 1.9322821944261" />
+    <parent link="Left_Rocker2Bogey" />
+    <child link="Left_MiddleWheel" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <link name="Left_BackWheel">
+    <inertial>
+      <origin xyz="-1.30618589000431E-08 -1.12259668227921E-09 -5.63770784928197E-06" rpy="0 0 0" />
+      <mass value="3.28964697209874" />
+      <inertia ixx="0.0163807715255406" ixy="6.80581072401434E-10" ixz="9.46269195717091E-10" iyy="0.0163807690030128" iyz="-5.38971336521319E-10" izz="0.0296783757627495" />
+    </inertial>
+    <visual>
+      <material name="black" >
+        <color rgba="0.0 0.0 0.0 1.0" />
+      </material>
+      <geometry>
+        <mesh filename="package://2000-SimplifiedAssembly-06/meshes/visual/Left_BackWheel.STL" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    </link>
+  <joint name="Left_BackMotor" type="fixed">
+    <origin xyz="-0.34870017734109 -0.0329830956324644 -0.41538946795221" rpy="-3.14159265358979 0 2.21631381188862" />
+    <parent link="Left_Suspension" />
+    <child link="Left_BackWheel" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <link name="Right_Suspension">
+    <inertial>
+      <origin xyz="0.111093649238265 0.187126580843029 0.340094888799838" rpy="0 0 0" />
+      <mass value="1.1026340778799" />
+      <inertia ixx="0.00185046506075367" ixy="-0.00128852112115456" ixz="-1.35695787199191E-07" iyy="0.0042252475574617" iyz="-9.87938593499558E-08" izz="0.00533632836479846" />
+    </inertial>
+    <visual>
+      <material name="silver" >
+        <color rgba="0.7725490196078432 0.788235294117647 0.7803921568627451 1.0" />
+      </material>
+      <geometry>
+        <mesh filename="package://2000-SimplifiedAssembly-06/meshes/visual/Right_Suspension.STL" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    </link>
+  <joint name="Right_Rocker" type="fixed">
+    <origin xyz="0.0575326660125922 -0.0283401186685128 -0.246502069543578" rpy="1.5707963267949 0 0" />
+    <parent link="chassis" />
+    <child link="Right_Suspension" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <link name="Right_Rocker2Bogey">
+    <inertial>
+      <origin xyz="0.397695453664716 -0.291633089323603 0.310181954570559" rpy="0 0 0" />
+      <mass value="4.293245586869" />
+      <inertia ixx="0.0175404720718886" ixy="-0.000206670441989018" ixz="0.00206145466497548" iyy="0.0181832623071163" iyz="0.000611599564299978" izz="0.0317571657084951" />
+    </inertial>
+    <visual>
+      <material name="silver" >
+        <color rgba="0.7725490196078432 0.788235294117647 0.7803921568627451 1.0" />
+      </material>
+      <geometry>
+        <mesh filename="package://2000-SimplifiedAssembly-06/meshes/visual/Right_Rocker2Bogey.STL" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    </link>
+  <joint name="Right_Bogey" type="fixed">
+    <origin xyz="0.109303222012017 0.193458474691488 0.0510722909097063" rpy="0.0419186071200392 -0.140189618805035 0.141568736826726" />
+    <parent link="Right_Suspension" />
+    <child link="Right_Rocker2Bogey" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <link name="Right_FrontWheel">
+    <inertial>
+      <origin xyz="-1.75249464939853E-09 -1.92570959178795E-09 5.63591627733562E-06" rpy="0 0 0" />
+      <mass value="3.28963915053278" />
+      <inertia ixx="0.0163807403511653" ixy="-8.91919940682015E-11" ixz="-1.29827293645497E-09" iyy="0.0163807379583617" iyz="7.07043402476238E-10" izz="0.0296783258201056" />
+    </inertial>
+    <visual>
+      <material name="black" >
+        <color rgba="0.0 0.0 0.0 1.0" />
+      </material>
+      <geometry>
+        <mesh filename="package://2000-SimplifiedAssembly-06/meshes/visual/Right_FrontWheel.STL" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    </link>
+  <joint name="Right_FrontMotor" type="fixed">
+    <origin xyz="0.420116653006444 -0.31117866338377 0.321965022741935" rpy="3.10907021451775 -0.142647279967552 -2.62794863504613" />
+    <parent link="Right_Rocker2Bogey" />
+    <child link="Right_FrontWheel" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <link name="Right_MiddleWheel">
+    <inertial>
+      <origin xyz="-1.71478636845634E-09 -1.80442412400783E-09 5.63590815766402E-06" rpy="0 0 0" />
+      <mass value="3.28963915025331" />
+      <inertia ixx="0.0163807403523817" ixy="-8.83161278483829E-11" ixz="-1.28701007694261E-09" iyy="0.0163807379714041" iyz="6.87407156794719E-10" izz="0.0296783258529361" />
+    </inertial>
+    <visual>
+      <material name="black" >
+        <color rgba="0.0 0.0 0.0 1.0" />
+      </material>
+      <geometry>
+        <mesh filename="package://2000-SimplifiedAssembly-06/meshes/visual/Right_BackWheel.STL" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    </link>
+  <joint name="Right_MiddleMotor" type="fixed">
+    <origin xyz="-0.037749681453219 -0.22108908956674 0.382855126553235" rpy="-2.99569987669466 -0.0107184424391394 1.9322821944261" />
+    <parent link="Right_Rocker2Bogey" />
+    <child link="Right_MiddleWheel" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <link name="Right_BackWheel">
+    <inertial>
+      <origin xyz="-1.87439802568079E-09 -2.02631667001185E-09 5.63591607405378E-06" rpy="0 0 0" />
+      <mass value="3.28963915160514" />
+      <inertia ixx="0.0163807403305824" ixy="-8.65890215431855E-11" ixz="-1.28786894502641E-09" iyy="0.0163807379701476" iyz="7.36495866545035E-10" izz="0.0296783257841066" />
+    </inertial>
+    <visual>
+      <material name="black" >
+        <color rgba="0.0 0.0 0.0 1.0" />
+      </material>
+      <geometry>
+        <mesh filename="package://2000-SimplifiedAssembly-06/meshes/visual/Right_BackWheel.STL" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    </link>
+  <joint name="Right_BackMotor" type="fixed">
+    <origin xyz="-0.348700177341093 -0.0329830956324626 0.415389467952218" rpy="-3.14159265358979 0 2.21631381188862" />
+    <parent link="Right_Suspension" />
+    <child link="Right_BackWheel" />
+    <axis xyz="0 0 0" />
+  </joint>
+</robot>
