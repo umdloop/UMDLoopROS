@@ -34,7 +34,7 @@
     <origin xyz="0.0575326660125926 0.0698099454270569 -0.246502069543578" rpy="1.5707963267949 0 0" />
     <parent link="chassis" />
     <child link="Left_Suspension" />
-    <axis xyz="0 0 0" />
+    <axis xyz="0 0 1" />
     <visual>
       <material name="silver" >
         <color rgba="0.7725490196078432 0.788235294117647 0.7803921568627451 1.0" />
@@ -63,7 +63,7 @@
     <origin xyz="0.109303222012017 0.193458474691488 -0.0510722909097063" rpy="-0.0419186071200392 0.140189618805035 0.141568736826726" />
     <parent link="Left_Suspension" />
     <child link="Left_Rocker2Bogey" />
-    <axis xyz="0 0 0" />
+    <axis xyz="0 0 1" />
   </joint>
   <link name="Left_FrontWheel">
     <inertial>
@@ -81,11 +81,11 @@
       </geometry>
     </visual>
     </link>
-  <joint name="Left_FrontMotor" type="fixed">
+  <joint name="Left_FrontMotor" type="continuous">
     <origin xyz="0.420116653006438 -0.311178663383762 -0.321965022741944" rpy="-3.10907021451776 0.142647279967552 -2.62794863504613" />
     <parent link="Left_Rocker2Bogey" />
     <child link="Left_FrontWheel" />
-    <axis xyz="0 0 0" />
+    <axis xyz="0 0 1" />
   </joint>
   <link name="Left_MiddleWheel">
     <inertial>
@@ -102,11 +102,11 @@
       </geometry>
     </visual>
     </link>
-  <joint name="Left_MiddleMotor" type="fixed">
+  <joint name="Left_MiddleMotor" type="continuous">
     <origin xyz="-0.0377496814532355 -0.221089089566748 -0.382855126553232" rpy="2.99569987669468 0.0107184424391394 1.9322821944261" />
     <parent link="Left_Rocker2Bogey" />
     <child link="Left_MiddleWheel" />
-    <axis xyz="0 0 0" />
+    <axis xyz="0 0 1" />
   </joint>
   <link name="Left_BackWheel">
     <inertial>
@@ -123,11 +123,11 @@
       </geometry>
     </visual>
     </link>
-  <joint name="Left_BackMotor" type="fixed">
+  <joint name="Left_BackMotor" type="continuous">
     <origin xyz="-0.34870017734109 -0.0329830956324644 -0.41538946795221" rpy="-3.14159265358979 0 2.21631381188862" />
     <parent link="Left_Suspension" />
     <child link="Left_BackWheel" />
-    <axis xyz="0 0 0" />
+    <axis xyz="0 0 1" />
   </joint>
   <link name="Right_Suspension">
     <inertial>
@@ -148,7 +148,7 @@
     <origin xyz="0.0575326660125922 -0.0283401186685128 -0.246502069543578" rpy="1.5707963267949 0 0" />
     <parent link="chassis" />
     <child link="Right_Suspension" />
-    <axis xyz="0 0 0" />
+    <axis xyz="0 0 1" />
   </joint>
   <link name="Right_Rocker2Bogey">
     <inertial>
@@ -169,7 +169,7 @@
     <origin xyz="0.109303222012017 0.193458474691488 0.0510722909097063" rpy="0.0419186071200392 -0.140189618805035 0.141568736826726" />
     <parent link="Right_Suspension" />
     <child link="Right_Rocker2Bogey" />
-    <axis xyz="0 0 0" />
+    <axis xyz="0 0 1" />
   </joint>
   <link name="Right_FrontWheel">
     <inertial>
@@ -186,11 +186,11 @@
       </geometry>
     </visual>
     </link>
-  <joint name="Right_FrontMotor" type="fixed">
+  <joint name="Right_FrontMotor" type="continuous">
     <origin xyz="0.420116653006444 -0.31117866338377 0.321965022741935" rpy="3.10907021451775 -0.142647279967552 -2.62794863504613" />
     <parent link="Right_Rocker2Bogey" />
     <child link="Right_FrontWheel" />
-    <axis xyz="0 0 0" />
+    <axis xyz="0 0 1" />
   </joint>
   <link name="Right_MiddleWheel">
     <inertial>
@@ -207,11 +207,11 @@
       </geometry>
     </visual>
     </link>
-  <joint name="Right_MiddleMotor" type="fixed">
+  <joint name="Right_MiddleMotor" type="continuous">
     <origin xyz="-0.037749681453219 -0.22108908956674 0.382855126553235" rpy="-2.99569987669466 -0.0107184424391394 1.9322821944261" />
     <parent link="Right_Rocker2Bogey" />
     <child link="Right_MiddleWheel" />
-    <axis xyz="0 0 0" />
+    <axis xyz="0 0 1" />
   </joint>
   <link name="Right_BackWheel">
     <inertial>
@@ -228,11 +228,11 @@
       </geometry>
     </visual>
     </link>
-  <joint name="Right_BackMotor" type="fixed">
+  <joint name="Right_BackMotor" type="continuous">
     <origin xyz="-0.348700177341093 -0.0329830956324626 0.415389467952218" rpy="-3.14159265358979 0 2.21631381188862" />
     <parent link="Right_Suspension" />
     <child link="Right_BackWheel" />
-    <axis xyz="0 0 0" />
+    <axis xyz="0 0 1" />
   </joint>
 
   
