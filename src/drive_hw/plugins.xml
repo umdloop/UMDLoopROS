@@ -1,8 +1,0 @@
-<library path="drive_hw">
-  <class 
-      name="ros2_control_demo_example_2/DiffBotSystemHardware"
-      type="drive_hw::DriveHw" 
-      base_class_type="hardware_interface::SystemInterface">
-    <description>This is a square plugin.</description>
-  </class>
-</library>

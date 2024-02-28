@@ -39,17 +39,17 @@ using namespace ctre::phoenix::motorcontrol::can;
 
 namespace diff_drive
 {
-  TalonSRX left_back(1);
   float wheel_radius = 0.13335;
-  /*TalonSRX left_middle(1);
-  TalonSRX left_front(2);*/
+  TalonSRX left_back(4); //this has the encoder!!
+  TalonSRX left_middle(6);
+  TalonSRX left_front(1);
 
-  TalonSRX right_back(2);
-  /*TalonSRX right_middle(4);
-  TalonSRX right_front(5);*/
+  TalonSRX right_back(3); //this needs to be reversed
+  TalonSRX right_middle(5);
+  TalonSRX right_front(2); //this needs to be reversed
   int kTimeoutMs = 100;
   
-  std::vector<TalonSRX *> motors = {&left_back,&right_back,};
+  std::vector<TalonSRX *> motors = {&left_back,&left_middle, &left_front,&right_back,&right_middle, &right_front};
 
   CallbackReturn DiffBotSystemHardware::on_init(const HardwareInfo &info)
   {
@@ -113,18 +113,20 @@ namespace diff_drive
     }
     /* Motor controller initialization */
     
-    for (auto i = 0u; i < motors.size(); i++)
+    /*for (auto i = 0u; i < motors.size(); i++)
     {
       motors[i]->ConfigFactoryDefault();
-      motors[i]->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder, 0, kTimeoutMs);
-      if(i<1) { //change this when more motors are added
-        motors[i]->SetSensorPhase(true);
-      }
-      else {
-        motors[i]->SetSensorPhase(false);
-      }
-      
     }
+      /*left_back.ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder, 0, kTimeoutMs);
+      left_front.Follow(left_back);
+      left_middle.Follow(left_front);
+      right_back.ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder, 0, kTimeoutMs);
+      right_middle.Follow(right_back);
+      right_front.Follow(right_back);*/
+      right_back.SetInverted(true);
+      right_front.SetInverted(true);
+      
+    
     return CallbackReturn::SUCCESS;
   }
 
@@ -208,7 +210,14 @@ return_type DiffBotSystemHardware::write(
           rclcpp::get_logger("DiffBotSystemHardware"), "Got command %.5f for '%s'! We tell it to do %f\n", hw_commands_[i]*wheel_radius,
           info_.joints[i].name.c_str(), convertTalonSRXUnitsToMeters(motors[i]->GetSelectedSensorVelocity()));
     }
-    motors[i]->Set(ControlMode::Velocity, clamp(convertMPStoTalonSRXUnits(hw_commands_[i]*wheel_radius),-0.1,0.1)); //theoretical max speed...this should not work
+    /*
+    if(i<3) {
+      left_back.Set(ControlMode::Velocity, clamp(convertMPStoTalonSRXUnits(hw_commands_[i]*wheel_radius),-0.1,0.1));
+    }
+    else {
+      right_back.Set(ControlMode::Velocity, clamp(convertMPStoTalonSRXUnits(hw_commands_[i]*wheel_radius),-0.1,0.1));
+    }*/
+    motors[i]->Set(ControlMode::PercentOutput, clamp((hw_commands_[i]*wheel_radius)/1.8153,-1.0,1.0)); //theoretical max speed...this should not work
     unmanaged::Unmanaged::FeedEnable(100); //in non FRC applications this is needed!
     last_hw_commands_[i] = hw_commands_[i]; // Update the last command
   }

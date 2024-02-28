@@ -10,8 +10,8 @@ controller_manager:
 
 diffbot_base_controller:
   ros__parameters:
-    left_wheel_names: ["Left_FrontMotor"]
-    right_wheel_names: ["right_wheel_joint"]
+    left_wheel_names: ["Left_FrontMotor","Left_MiddleMotor","Left_BackMotor"]
+    right_wheel_names: ["Right_FrontMotor","Right_MiddleMotor","Right_BackMotor"]
     use_stamped_vel: false
 
     wheel_separation: 0.932
@@ -24,12 +24,13 @@ diffbot_base_controller:
 
     publish_rate: 50.0
     odom_frame_id: odom
-    base_frame_id: base_link
+    base_frame_id: chassis
     pose_covariance_diagonal : [0.001, 0.001, 0.001, 0.001, 0.001, 0.01]
     twist_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.01]
 
     open_loop: true
     enable_odom_tf: true
+    use_sim_time: false
 
     cmd_vel_timeout: 0.5
     #publish_limited_velocity: true

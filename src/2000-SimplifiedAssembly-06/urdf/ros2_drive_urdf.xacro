@@ -14,6 +14,11 @@
         <mesh filename="package://2000-SimplifiedAssembly-06/meshes/visual/chassis.STL" scale="1 1 1"/>
       </geometry>
     </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://2000-SimplifiedAssembly-06/meshes/visual/chassis.STL" scale="1 1 1"/>
+      </geometry>
+    </collision>
     </link>
   <link name="Left_Suspension">
     <inertial>
@@ -29,6 +34,11 @@
         <mesh filename="package://2000-SimplifiedAssembly-06/meshes/visual/Left_Suspension.STL" scale="1 1 1"/>
       </geometry>
     </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://2000-SimplifiedAssembly-06/meshes/visual/Left_Suspension.STL" scale="1 1 1"/>
+      </geometry>
+    </collision>
     </link>
   <joint name="Left_Rocker" type="fixed">
     <origin xyz="0.0575326660125926 0.0698099454270569 -0.246502069543578" rpy="1.5707963267949 0 0" />
@@ -58,6 +68,11 @@
         <mesh filename="package://2000-SimplifiedAssembly-06/meshes/visual/Left_Rocker2Bogey.STL" scale="1 1 1"/>
       </geometry>
     </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://2000-SimplifiedAssembly-06/meshes/visual/Left_Rocker2Bogey.STL" scale="1 1 1"/>
+      </geometry>
+    </collision>
     </link>
   <joint name="Left_Bogey" type="fixed">
     <origin xyz="0.109303222012017 0.193458474691488 -0.0510722909097063" rpy="-0.0419186071200392 0.140189618805035 0.141568736826726" />
@@ -80,6 +95,11 @@
         <mesh filename="package://2000-SimplifiedAssembly-06/meshes/visual/Left_FrontWheel.STL" scale="1 1 1"/>
       </geometry>
     </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://2000-SimplifiedAssembly-06/meshes/visual/Left_FrontWheel.STL" scale="1 1 1"/>
+      </geometry>
+    </collision>
     </link>
   <joint name="Left_FrontMotor" type="continuous">
     <origin xyz="0.420116653006438 -0.311178663383762 -0.321965022741944" rpy="-3.10907021451776 0.142647279967552 -2.62794863504613" />
@@ -101,6 +121,11 @@
         <mesh filename="package://2000-SimplifiedAssembly-06/meshes/visual/Left_MiddleWheel.STL" scale="1 1 1"/>
       </geometry>
     </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://2000-SimplifiedAssembly-06/meshes/visual/Left_MiddleWheel.STL" scale="1 1 1"/>
+      </geometry>
+    </collision>
     </link>
   <joint name="Left_MiddleMotor" type="continuous">
     <origin xyz="-0.0377496814532355 -0.221089089566748 -0.382855126553232" rpy="2.99569987669468 0.0107184424391394 1.9322821944261" />
@@ -122,6 +147,11 @@
         <mesh filename="package://2000-SimplifiedAssembly-06/meshes/visual/Left_BackWheel.STL" scale="1 1 1"/>
       </geometry>
     </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://2000-SimplifiedAssembly-06/meshes/visual/Left_BackWheel.STL" scale="1 1 1"/>
+      </geometry>
+    </collision>
     </link>
   <joint name="Left_BackMotor" type="continuous">
     <origin xyz="-0.34870017734109 -0.0329830956324644 -0.41538946795221" rpy="-3.14159265358979 0 2.21631381188862" />
@@ -143,6 +173,11 @@
         <mesh filename="package://2000-SimplifiedAssembly-06/meshes/visual/Right_Suspension.STL" scale="1 1 1"/>
       </geometry>
     </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://2000-SimplifiedAssembly-06/meshes/visual/Right_Suspension.STL" scale="1 1 1"/>
+      </geometry>
+    </collision>
     </link>
   <joint name="Right_Rocker" type="fixed">
     <origin xyz="0.0575326660125922 -0.0283401186685128 -0.246502069543578" rpy="1.5707963267949 0 0" />
@@ -164,6 +199,11 @@
         <mesh filename="package://2000-SimplifiedAssembly-06/meshes/visual/Right_Rocker2Bogey.STL" scale="1 1 1"/>
       </geometry>
     </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://2000-SimplifiedAssembly-06/meshes/visual/Right_Rocker2Bogey.STL" scale="1 1 1"/>
+      </geometry>
+    </collision>
     </link>
   <joint name="Right_Bogey" type="fixed">
     <origin xyz="0.109303222012017 0.193458474691488 0.0510722909097063" rpy="0.0419186071200392 -0.140189618805035 0.141568736826726" />
@@ -185,6 +225,11 @@
         <mesh filename="package://2000-SimplifiedAssembly-06/meshes/visual/Right_FrontWheel.STL" scale="1 1 1"/>
       </geometry>
     </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://2000-SimplifiedAssembly-06/meshes/visual/Right_FrontWheel.STL" scale="1 1 1"/>
+      </geometry>
+    </collision>
     </link>
   <joint name="Right_FrontMotor" type="continuous">
     <origin xyz="0.420116653006444 -0.31117866338377 0.321965022741935" rpy="3.10907021451775 -0.142647279967552 -2.62794863504613" />
@@ -206,6 +251,11 @@
         <mesh filename="package://2000-SimplifiedAssembly-06/meshes/visual/Right_BackWheel.STL" scale="1 1 1"/>
       </geometry>
     </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://2000-SimplifiedAssembly-06/meshes/visual/Right_BackWheel.STL" scale="1 1 1"/>
+      </geometry>
+    </collision>
     </link>
   <joint name="Right_MiddleMotor" type="continuous">
     <origin xyz="-0.037749681453219 -0.22108908956674 0.382855126553235" rpy="-2.99569987669466 -0.0107184424391394 1.9322821944261" />
@@ -227,6 +277,11 @@
         <mesh filename="package://2000-SimplifiedAssembly-06/meshes/visual/Right_BackWheel.STL" scale="1 1 1"/>
       </geometry>
     </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://2000-SimplifiedAssembly-06/meshes/visual/Right_BackWheel.STL" scale="1 1 1"/>
+      </geometry>
+    </collision>
     </link>
   <joint name="Right_BackMotor" type="continuous">
     <origin xyz="-0.348700177341093 -0.0329830956324626 0.415389467952218" rpy="-3.14159265358979 0 2.21631381188862" />
@@ -235,5 +290,11 @@
     <axis xyz="0 0 1" />
   </joint>
 
-  
+  <gazebo>
+    <!-- Joint state publisher -->
+    <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
+      <parameters>$(find diff_drive)/config/diffbot_controllers.yaml</parameters>
+    </plugin>
+  </gazebo>
+
 </robot>
