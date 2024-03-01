@@ -59,7 +59,7 @@ def generate_launch_description():
             )
     
     joy_node = Node(
-            package='joy', executable='joy_node', name='joy_node',
+            package='joy_linux', executable='joy_linux_node', name='joy_node',
             parameters=[joy_params])
         
     teleop_twist_joy_node = Node(
