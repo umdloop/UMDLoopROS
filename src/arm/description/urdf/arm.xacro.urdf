@@ -2,8 +2,10 @@
 <!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
      Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
      For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
-<robot
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"
   name="arm">
+  <link name="dummy"></link>
+
   <link
     name="base_link">
     <inertial>
@@ -44,6 +46,10 @@
       </geometry>
     </collision>
   </link>
+  <joint name="dummy_joint" type="fixed">
+     <parent link="dummy"/>
+     <child link="base_link"/>
+   </joint>
   <link
     name="shoulder_link">
     <inertial>
@@ -96,11 +102,7 @@
       link="shoulder_link" />
     <axis
       xyz="0 1 0" />
-    <limit
-      lower="0"
-      upper="0"
-      effort="0"
-      velocity="0" />
+    <limit effort="1000.0" lower="-3.141592653589793" upper="3.141592653589793" velocity="2.5"/>
   </joint>
   <link
     name="bicep_link">
@@ -154,11 +156,7 @@
       link="bicep_link" />
     <axis
       xyz="-1 0 0" />
-    <limit
-      lower="0"
-      upper="0"
-      effort="0"
-      velocity="0" />
+    <limit effort="1000.0" lower="-3.141592653589793" upper="3.141592653589793" velocity="2.5"/>
   </joint>
   <link
     name="forearm_link">
@@ -212,11 +210,7 @@
       link="forearm_link" />
     <axis
       xyz="-1 0 0" />
-    <limit
-      lower="0"
-      upper="0"
-      effort="0"
-      velocity="0" />
+    <limit effort="1000.0" lower="-3.141592653589793" upper="3.141592653589793" velocity="2.5"/>
   </joint>
   <link
     name="wrist_pitch_link">
@@ -270,11 +264,7 @@
       link="wrist_pitch_link" />
     <axis
       xyz="-0.707106781186547 0 0.707106781186548" />
-    <limit
-      lower="0"
-      upper="0"
-      effort="0"
-      velocity="0" />
+    <limit effort="1000.0" lower="-3.141592653589793" upper="3.141592653589793" velocity="2.5"/>
   </joint>
   <link
     name="wrist_yaw_link">
@@ -328,11 +318,7 @@
       link="wrist_yaw_link" />
     <axis
       xyz="0.706887306729703 0.0176165407866436 0.707106776289932" />
-    <limit
-      lower="0"
-      upper="0"
-      effort="0"
-      velocity="0" />
+    <limit effort="1000.0" lower="-3.141592653589793" upper="3.141592653589793" velocity="2.5"/>
   </joint>
   <link
     name="wrist_roll_link">
@@ -386,10 +372,66 @@
       link="wrist_roll_link" />
     <axis
       xyz="0.000668221963468187 0.0176603835099617 -0.999843819970743" />
-    <limit
-      lower="0"
-      upper="0"
-      effort="0"
-      velocity="0" />
+    <limit effort="1000.0" lower="-3.141592653589793" upper="3.141592653589793" velocity="2.5"/>
   </joint>
+
+  <ros2_control name="ArmController" type="System">
+    <hardware>
+      <plugin>ign_ros2_control/IgnitionSystem</plugin>
+    </hardware>
+    <joint name="base_yaw_joint">
+      <command_interface name="position"/>
+      <state_interface name="position">
+        <param name="initial_value">0.15</param>
+      </state_interface>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+    <joint name="shoulder_pitch_joint">
+      <command_interface name="position"/>
+      <state_interface name="position">
+        <param name="initial_value">0.15</param>
+      </state_interface>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+    <joint name="elbow_pitch_joint">
+      <command_interface name="position"/>
+      <state_interface name="position">
+        <param name="initial_value">0.15</param>
+      </state_interface>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+    <joint name="wrist_pitch_joint">
+      <command_interface name="position"/>
+      <state_interface name="position">
+        <param name="initial_value">0.15</param>
+      </state_interface>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+    <joint name="wrist_yaw_joint">
+      <command_interface name="position"/>
+      <state_interface name="position">
+        <param name="initial_value">0.15</param>
+      </state_interface>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+    <joint name="wrist_roll_joint">
+      <command_interface name="position"/>
+      <state_interface name="position">
+        <param name="initial_value">0.15</param>
+      </state_interface>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+  </ros2_control>
+
+  <gazebo>
+    <plugin filename="ign_ros2_control-system" name="ign_ros2_control::IgnitionROS2ControlPlugin">
+      <parameters>$(find arm)/config/arm_controller.yaml</parameters>
+    </plugin>
+  </gazebo>
 </robot>
