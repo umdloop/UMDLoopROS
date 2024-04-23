@@ -28,3 +28,9 @@ Finally, run:
 ```
 sudo ldconfig
 ```
+
+# Building Packages
+
+If you are getting a failure related to "error: Multiple top-level...", please run:
+
+```pip install setuptools==58.2.0```
