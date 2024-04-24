@@ -37,12 +37,10 @@ private:
         } 
         if (msg->buttons[0] == 1)
         {
-            // Set the TalonSRX to full forward when the A button is pressed
             talSRX->Set(ControlMode::PercentOutput, .1);
         }
         else
         {
-            // Stop the TalonSRX when the A button is not pressed
             talSRX->Set(ControlMode::PercentOutput, 0.0);
         }
     }
