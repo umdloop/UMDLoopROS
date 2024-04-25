@@ -17,9 +17,14 @@ public:
     TalonSRXController()
         : Node("talon_srx_controller")
     {
-        talSRX = new TalonSRX(0);
-        talSRX->EnableCurrentLimit(true);
-        talSRX->ConfigPeakCurrentLimit(10);
+        this->declare_parameter("speed", .1);
+        this->declare_parameter("differential", 0.0);
+        leftLiftMotor = new TalonSRX(7);
+        leftLiftMotor->EnableCurrentLimit(true);
+        leftLiftMotor->ConfigPeakCurrentLimit(10);
+        rightLiftMotor = new TalonSRX(8);
+        rightLiftMotor->EnableCurrentLimit(true);
+        rightLiftMotor->ConfigPeakCurrentLimit(10);
 
         subscription_ = this->create_subscription<keyboard_msgs::msg::Key>(    // CHANGE
       "keydown", 10, std::bind(&TalonSRXController::key_callback, this, std::placeholders::_1));
@@ -27,26 +32,32 @@ public:
 
     ~TalonSRXController()
     {
-        delete talSRX;
+        delete leftLiftMotor;
+        delete rightLiftMotor;
     }
 
 private:
     void key_callback(const keyboard_msgs::msg::Key & msg) const
     {
         RCLCPP_INFO(this->get_logger(), "%d", msg.code);
-        if (msg.code == 97)
+        if (msg.code == msg.KEY_A)
         {
             RCLCPP_INFO(this->get_logger(), "%d", msg.code);
-            talSRX->Set(ControlMode::PercentOutput, .1);
+            RCLCPP_INFO(this->get_logger(), "Current Left Speed: %f", this->get_parameter("speed").as_double()+this->get_parameter("differential").as_double());
+            RCLCPP_INFO(this->get_logger(), "Current Right Speed: %f", this->get_parameter("speed").as_double()-this->get_parameter("differential").as_double());
+            leftLiftMotor->Set(ControlMode::PercentOutput, this->get_parameter("speed").as_double()+this->get_parameter("differential").as_double());
+            rightLiftMotor->Set(ControlMode::PercentOutput, this->get_parameter("speed").as_double()-this->get_parameter("differential").as_double());
+
         }
         else
         {
-            talSRX->Set(ControlMode::PercentOutput, 0.0);
+            leftLiftMotor->Set(ControlMode::PercentOutput, 0.0);
         }
     }
 
     rclcpp::Subscription<keyboard_msgs::msg::Key>::SharedPtr subscription_;
-    TalonSRX* talSRX;
+    TalonSRX* leftLiftMotor;
+    TalonSRX* rightLiftMotor;
 };
 
 int main(int argc, char * argv[])
