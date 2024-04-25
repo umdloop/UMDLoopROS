@@ -9,6 +9,7 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
+find_package(keyboard_msgs REQUIRED)
 
 
 if (${CMAKE_LIBRARY_ARCHITECTURE} STREQUAL "arm-linux-gnueabihf") # Jetson TK1 / Pi
@@ -37,6 +38,8 @@ target_link_libraries(science_node
 
 ament_target_dependencies(science_node
     rclcpp
+    sensor_msgs
+    keyboard_msgs
 )
 
 set(DIRECTORIES launch)

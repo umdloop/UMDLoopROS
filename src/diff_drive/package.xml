@@ -27,6 +27,7 @@
   <exec_depend>joy</exec_depend>
   <exec_depend>xterm</exec_depend>
   <exec_depend>teleop_twist_joy</exec_depend>
+  <exec_depend>joy_linux</exec_depend>
 
   <exec_depend condition="$GZ_VERSION == ''">ros_gz_sim</exec_depend>
   <exec_depend condition="$GZ_VERSION == 'harmonic'">ros_gz_sim</exec_depend>
