@@ -17,14 +17,19 @@ public:
     TalonSRXController()
         : Node("talon_srx_controller")
     {
-        this->declare_parameter("speed", .1);
-        this->declare_parameter("differential", 0.0);
+        this->declare_parameter("speed", .4);
+        this->declare_parameter("left", 0.1);
+        this->declare_parameter("right", 0.0);
         leftLiftMotor = new TalonSRX(7);
         leftLiftMotor->EnableCurrentLimit(true);
-        leftLiftMotor->ConfigPeakCurrentLimit(10);
+        leftLiftMotor->ConfigVoltageCompSaturation(24);
+        leftLiftMotor->EnableVoltageCompensation(true);
+        leftLiftMotor->ConfigPeakCurrentLimit(20);
         rightLiftMotor = new TalonSRX(8);
         rightLiftMotor->EnableCurrentLimit(true);
-        rightLiftMotor->ConfigPeakCurrentLimit(10);
+        rightLiftMotor->ConfigPeakCurrentLimit(20);
+        rightLiftMotor->ConfigVoltageCompSaturation(24);
+        rightLiftMotor->EnableVoltageCompensation(true);
 
         subscription_ = this->create_subscription<keyboard_msgs::msg::Key>(    // CHANGE
       "keydown", 10, std::bind(&TalonSRXController::key_callback, this, std::placeholders::_1));
@@ -44,19 +49,19 @@ private:
         {
             unmanaged::Unmanaged::FeedEnable(100);
             RCLCPP_INFO(this->get_logger(), "%d", msg.code);
-            RCLCPP_INFO(this->get_logger(), "Current Left Speed: %f", this->get_parameter("speed").as_double()+this->get_parameter("differential").as_double());
-            RCLCPP_INFO(this->get_logger(), "Current Right Speed: %f", this->get_parameter("speed").as_double()-this->get_parameter("differential").as_double());
-            leftLiftMotor->Set(ControlMode::PercentOutput, this->get_parameter("speed").as_double()+this->get_parameter("differential").as_double());
-            rightLiftMotor->Set(ControlMode::PercentOutput, this->get_parameter("speed").as_double()-this->get_parameter("differential").as_double());
+            RCLCPP_INFO(this->get_logger(), "Current Left Speed: %f", this->get_parameter("speed").as_double()+this->get_parameter("left").as_double());
+            RCLCPP_INFO(this->get_logger(), "Current Right Speed: %f", this->get_parameter("speed").as_double()+this->get_parameter("right").as_double());
+            leftLiftMotor->Set(ControlMode::PercentOutput, this->get_parameter("speed").as_double()+this->get_parameter("left").as_double());
+            rightLiftMotor->Set(ControlMode::PercentOutput, this->get_parameter("speed").as_double()+this->get_parameter("right").as_double()+.1);
 
         }
         else if (msg.code == msg.KEY_I) {
             unmanaged::Unmanaged::FeedEnable(100);
             RCLCPP_INFO(this->get_logger(), "%d", msg.code);
-            RCLCPP_INFO(this->get_logger(), "Current Left Speed: %f", this->get_parameter("speed").as_double()+this->get_parameter("differential").as_double());
-            RCLCPP_INFO(this->get_logger(), "Current Right Speed: %f", this->get_parameter("speed").as_double()-this->get_parameter("differential").as_double());
-            leftLiftMotor->Set(ControlMode::PercentOutput, -1*this->get_parameter("speed").as_double()+this->get_parameter("differential").as_double());
-            rightLiftMotor->Set(ControlMode::PercentOutput, -1*this->get_parameter("speed").as_double()-this->get_parameter("differential").as_double());
+            RCLCPP_INFO(this->get_logger(), "Current Left Speed: %f", this->get_parameter("speed").as_double()+this->get_parameter("left").as_double()+.1);
+            RCLCPP_INFO(this->get_logger(), "Current Right Speed: %f", this->get_parameter("speed").as_double()-this->get_parameter("right").as_double());
+            leftLiftMotor->Set(ControlMode::PercentOutput, -1*this->get_parameter("speed").as_double()+this->get_parameter("left").as_double()-.2);
+            rightLiftMotor->Set(ControlMode::PercentOutput, -1*this->get_parameter("speed").as_double()+this->get_parameter("right").as_double());
 
         }
         else
