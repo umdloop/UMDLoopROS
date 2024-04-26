@@ -40,8 +40,9 @@ private:
     void key_callback(const keyboard_msgs::msg::Key & msg) const
     {
         RCLCPP_INFO(this->get_logger(), "%d", msg.code);
-        if (msg.code == msg.KEY_A)
+        if (msg.code == msg.KEY_U)
         {
+            unmanaged::Unmanaged::FeedEnable(100);
             RCLCPP_INFO(this->get_logger(), "%d", msg.code);
             RCLCPP_INFO(this->get_logger(), "Current Left Speed: %f", this->get_parameter("speed").as_double()+this->get_parameter("differential").as_double());
             RCLCPP_INFO(this->get_logger(), "Current Right Speed: %f", this->get_parameter("speed").as_double()-this->get_parameter("differential").as_double());
@@ -49,9 +50,19 @@ private:
             rightLiftMotor->Set(ControlMode::PercentOutput, this->get_parameter("speed").as_double()-this->get_parameter("differential").as_double());
 
         }
+        else if (msg.code == msg.KEY_I) {
+            unmanaged::Unmanaged::FeedEnable(100);
+            RCLCPP_INFO(this->get_logger(), "%d", msg.code);
+            RCLCPP_INFO(this->get_logger(), "Current Left Speed: %f", this->get_parameter("speed").as_double()+this->get_parameter("differential").as_double());
+            RCLCPP_INFO(this->get_logger(), "Current Right Speed: %f", this->get_parameter("speed").as_double()-this->get_parameter("differential").as_double());
+            leftLiftMotor->Set(ControlMode::PercentOutput, -1*this->get_parameter("speed").as_double()+this->get_parameter("differential").as_double());
+            rightLiftMotor->Set(ControlMode::PercentOutput, -1*this->get_parameter("speed").as_double()-this->get_parameter("differential").as_double());
+
+        }
         else
         {
             leftLiftMotor->Set(ControlMode::PercentOutput, 0.0);
+            rightLiftMotor->Set(ControlMode::PercentOutput, 0.0);
         }
     }
 
