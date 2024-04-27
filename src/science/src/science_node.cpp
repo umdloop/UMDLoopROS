@@ -31,8 +31,10 @@ public:
         rightLiftMotor->ConfigVoltageCompSaturation(24);
         rightLiftMotor->EnableVoltageCompensation(true);
 
-        subscription_ = this->create_subscription<keyboard_msgs::msg::Key>(    // CHANGE
-      "keydown", 10, std::bind(&TalonSRXController::key_callback, this, std::placeholders::_1));
+        subscription1_ = this->create_subscription<keyboard_msgs::msg::Key>(    // CHANGE
+      "keydown", 10, std::bind(&TalonSRXController::keydown_callback, this, std::placeholders::_1));
+      subscription2_ = this->create_subscription<keyboard_msgs::msg::Key>(    // CHANGE
+      "keyup", 10, std::bind(&TalonSRXController::keyup_callback, this, std::placeholders::_1));
     }
 
     ~TalonSRXController()
@@ -42,7 +44,7 @@ public:
     }
 
 private:
-    void key_callback(const keyboard_msgs::msg::Key & msg) const
+    void keydown_callback(const keyboard_msgs::msg::Key & msg) const
     {
         RCLCPP_INFO(this->get_logger(), "%d", msg.code);
         if (msg.code == msg.KEY_U)
@@ -71,7 +73,14 @@ private:
         }
     }
 
-    rclcpp::Subscription<keyboard_msgs::msg::Key>::SharedPtr subscription_;
+    void keyup_callback(const keyboard_msgs::msg::Key & msg) const
+    {
+            leftLiftMotor->Set(ControlMode::PercentOutput, 0.0);
+            rightLiftMotor->Set(ControlMode::PercentOutput, 0.0);
+    }
+
+    rclcpp::Subscription<keyboard_msgs::msg::Key>::SharedPtr subscription1_;
+    rclcpp::Subscription<keyboard_msgs::msg::Key>::SharedPtr subscription2_;
     TalonSRX* leftLiftMotor;
     TalonSRX* rightLiftMotor;
 };
