@@ -54,7 +54,7 @@ private:
             RCLCPP_INFO(this->get_logger(), "Current Left Speed: %f", this->get_parameter("speed").as_double()+this->get_parameter("left").as_double());
             RCLCPP_INFO(this->get_logger(), "Current Right Speed: %f", this->get_parameter("speed").as_double()+this->get_parameter("right").as_double());
             leftLiftMotor->Set(ControlMode::PercentOutput, this->get_parameter("speed").as_double()+this->get_parameter("left").as_double());
-            rightLiftMotor->Set(ControlMode::PercentOutput, this->get_parameter("speed").as_double()+this->get_parameter("right").as_double()+.1);
+            rightLiftMotor->Set(ControlMode::PercentOutput, this->get_parameter("speed").as_double()+this->get_parameter("right").as_double());
 
         }
         else if (msg.code == msg.KEY_I) {
@@ -62,8 +62,8 @@ private:
             RCLCPP_INFO(this->get_logger(), "%d", msg.code);
             RCLCPP_INFO(this->get_logger(), "Current Left Speed: %f", this->get_parameter("speed").as_double()+this->get_parameter("left").as_double()+.1);
             RCLCPP_INFO(this->get_logger(), "Current Right Speed: %f", this->get_parameter("speed").as_double()-this->get_parameter("right").as_double());
-            leftLiftMotor->Set(ControlMode::PercentOutput, -1*this->get_parameter("speed").as_double()+this->get_parameter("left").as_double()-.2);
-            rightLiftMotor->Set(ControlMode::PercentOutput, -1*this->get_parameter("speed").as_double()+this->get_parameter("right").as_double());
+            leftLiftMotor->Set(ControlMode::PercentOutput, -1*this->get_parameter("speed").as_double()+this->get_parameter("left").as_double()-.31);
+            rightLiftMotor->Set(ControlMode::PercentOutput, -1*this->get_parameter("speed").as_double()+this->get_parameter("right").as_double()-.1);
 
         }
         else
